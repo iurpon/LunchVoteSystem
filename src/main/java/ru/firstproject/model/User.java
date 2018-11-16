@@ -1,6 +1,7 @@
 package ru.firstproject.model;
 
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.Set;
 
 public class User extends AbstractNamedEntity {
@@ -9,11 +10,32 @@ public class User extends AbstractNamedEntity {
     private Date registered = new Date();
     private Set<Role> roles;
 
-    public User(Integer id, String name, String email, String password, Set<Role> roles) {
+    public User() {
+    }
+
+    public User(User u) {
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(),u.getRegistered(), u.getRoles());
+    }
+
+
+
+    public User(Integer id, String name, String email, String password, Date registered,Set<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
         this.roles = roles;
+        this.registered = registered;
+    }
+
+    public User(Integer id, String name, String email, String password,Set<Role> roles) {
+        super(id, name);
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public User(Integer id, String name, String email, String password, Role role,Role... roles) {
+        this(id,name,email,password, EnumSet.of(role,roles));
     }
 
     public String getEmail() {

@@ -9,38 +9,39 @@ import ru.firstproject.util.exception.NotFoundException;
 import java.util.List;
 
 @Service
-public class MockUserService implements UserService {
-
+public class UserServiceImpl  implements UserService{
     @Autowired
     private UserRepository repository;
 
     @Override
     public User create(User user) {
-        return null;
+        return repository.save(user);
     }
 
     @Override
     public void delete(int id) throws NotFoundException {
-
+        if(!repository.delete(id)) throw new NotFoundException("No User with id = " + id);
     }
 
     @Override
     public User get(int id) throws NotFoundException {
-        return null;
+        return repository.get(id);
     }
 
     @Override
     public User getByEmail(String email) throws NotFoundException {
-        return null;
+        User user = repository.getByEmail(email);
+        if(user == null) throw new NotFoundException("No user with email = " + email);
+        return user;
     }
 
     @Override
     public void update(User user) {
-
+        repository.save(user);
     }
 
     @Override
     public List<User> getAll() {
-        return null;
+        return repository.getAll();
     }
 }

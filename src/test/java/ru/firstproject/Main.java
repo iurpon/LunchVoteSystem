@@ -8,7 +8,8 @@ import java.util.stream.Stream;
 public class Main {
     public static void main(String[] args) {
         // java 7 Automatic resource management
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
+        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml"
+                                                                                                    ,"spring/spring-db.xml")) {
             Stream.of(appCtx.getBeanDefinitionNames()).forEach(System.out::println);
 
         }

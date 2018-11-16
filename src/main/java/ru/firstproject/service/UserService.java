@@ -6,6 +6,7 @@ import ru.firstproject.util.exception.NotFoundException;
 import java.util.List;
 
 public interface UserService {
+
     User create(User user);
 
     void delete(int id) throws NotFoundException;
