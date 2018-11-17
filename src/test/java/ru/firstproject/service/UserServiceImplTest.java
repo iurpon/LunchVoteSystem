@@ -70,7 +70,8 @@ public class UserServiceImplTest {
 
     @Test(expected = NotFoundException.class)
     public void getByWrongEmail() throws Exception {
-        User user = service.getByEmail("users@yandex.ru");
+        String email = "users@yandex.ru";
+        User user = service.getByEmail(email);
     }
 
     @Test
