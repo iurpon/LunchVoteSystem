@@ -5,7 +5,7 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="ru.firstproject.repository.jdbc"/>
+    <context:component-scan base-package="ru.firstproject.repository.jpa"/>
 
     <context:component-scan base-package="ru.firstproject.service"/>
 
