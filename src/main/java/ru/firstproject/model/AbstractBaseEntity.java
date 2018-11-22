@@ -1,10 +1,12 @@
 package ru.firstproject.model;
 
+import org.springframework.data.domain.Persistable;
+
 import javax.persistence.*;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public abstract class AbstractBaseEntity {
+public abstract class AbstractBaseEntity  implements Persistable<Integer> {
     public static final int START_SEQ = 100000;
 
     @Id
@@ -19,6 +21,7 @@ public abstract class AbstractBaseEntity {
         this.id = id;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -27,6 +30,7 @@ public abstract class AbstractBaseEntity {
         this.id = id;
     }
 
+    @Override
     public boolean isNew(){
         return id == null;
     }
