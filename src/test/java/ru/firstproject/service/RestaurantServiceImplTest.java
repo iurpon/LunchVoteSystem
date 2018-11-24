@@ -61,7 +61,8 @@ public class RestaurantServiceImplTest {
 
     @Test(expected = NotFoundException.class)
     public void getWrongId() throws Exception {
-        Restaurant restaurant = restaurantService.get(10);
+        int id = 10;
+        Restaurant restaurant = restaurantService.get(id);
     }
 
     @Test

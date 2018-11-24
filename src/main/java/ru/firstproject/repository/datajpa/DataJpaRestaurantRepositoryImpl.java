@@ -23,7 +23,6 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
 
     @Override
     public int  delete(int id) {
-//         restaurantRepository.deleteById(id);
         return restaurantRepository.delete(id);
     }
 
