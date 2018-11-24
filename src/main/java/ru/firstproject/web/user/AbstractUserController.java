@@ -9,8 +9,7 @@ import ru.firstproject.service.UserService;
 
 import java.util.List;
 
-import static ru.firstproject.util.ValidationUtil.assureIdConsistent;
-import static ru.firstproject.util.ValidationUtil.checkNew;
+
 
 @Controller
 public class AbstractUserController {
@@ -31,7 +30,7 @@ public class AbstractUserController {
 
     public User create(User user) {
         log.info("create {}", user);
-        checkNew(user);
+//        checkNew(user);
         return service.create(user);
     }
 
@@ -42,7 +41,7 @@ public class AbstractUserController {
 
     public void update(User user, int id) {
         log.info("update {} with id={}", user, id);
-        assureIdConsistent(user, id);
+//        assureIdConsistent(user, id);
         service.update(user);
     }
 
