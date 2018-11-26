@@ -1,13 +1,16 @@
 package ru.firstproject.service;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.firstproject.model.Menu;
+import ru.firstproject.util.exception.ChangeDeniedException;
 import ru.firstproject.util.exception.NotFoundException;
 
 import java.util.Arrays;
@@ -25,9 +28,17 @@ public class MenuServiceImplTest {
 
     @Autowired
     private MenuService menuService;
-    
+
     @Autowired
     private DateLabelService dateLabelService;
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Before
+    public void setUp() throws Exception {
+        cacheManager.getCache("date_label").clear();
+    }
 
     @Test
     public void save() throws Exception {
@@ -37,9 +48,24 @@ public class MenuServiceImplTest {
         assertEquals(4,menuService.getAllByDate(new Date()).size());
     }
 
+    @Test(expected = ChangeDeniedException.class)
+    public void saveDenied() throws Exception {
+        dateLabelService.startVoting();
+        Menu menu = new Menu(null,"HotDog","Milk Cocktail");
+        menu.setRestaurant(RESTAURANT1);
+        menuService.save(menu);
+        assertEquals(4,menuService.getAllByDate(new Date()).size());
+    }
 
     @Test
     public void delete() throws Exception {
+        menuService.delete(MENU_SEQ1);
+        assertMatch(menuService.getAllByDate(new Date()),Arrays.asList(MENU2,MENU3),"registered","restaurant");
+    }
+
+    @Test(expected = ChangeDeniedException.class)
+    public void deleteDenied() throws Exception {
+        dateLabelService.startVoting();
         menuService.delete(MENU_SEQ1);
         assertMatch(menuService.getAllByDate(new Date()),Arrays.asList(MENU2,MENU3),"registered","restaurant");
     }
@@ -62,5 +88,4 @@ public class MenuServiceImplTest {
         assertMatch(list, Arrays.asList(MENU1,MENU2,MENU3),"restaurant","registered");
         list.stream().forEach(System.out::println);
     }
-
 }

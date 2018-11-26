@@ -22,19 +22,5 @@ public class ValidationUtil {
             throw new NotFoundException("Not found object with id = " + id);
         }
     }
-    public static <T> T checkForChange(boolean cond,T obj){
-        if(!cond){
-            return obj;
-        }else{
-            throw new ChangeDeniedException("Voting alreadey started. Can't change menu");
-        }
-    }
-    public static <T> int checkForChange(boolean cond,int id){
-        if(!cond){
-            return id;
-        }else{
-            throw new ChangeDeniedException("Voting alreadey started. Can't change menu");
-        }
-    }
 
 }

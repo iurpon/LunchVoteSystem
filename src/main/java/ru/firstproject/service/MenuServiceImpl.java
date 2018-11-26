@@ -10,6 +10,7 @@ import ru.firstproject.util.exception.ChangeDeniedException;
 import java.util.Date;
 import java.util.List;
 import static ru.firstproject.util.ValidationUtil.*;
+
 @Service
 public class MenuServiceImpl implements MenuService {
 
@@ -21,12 +22,21 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu save(Menu menu) {
-        return checkForChange(dateLabelRepository.isPresentToday(),menuRepository.save(menu));
+        if(!dateLabelRepository.isPresentToday()){
+            return menuRepository.save(menu);
+        }else{
+            throw new ChangeDeniedException("voting already started. can't change menu");
+        }
     }
 
     @Override
     public int delete(int id) {
-        return checkForChange(dateLabelRepository.isPresentToday(),menuRepository.delete(id));
+        if(!dateLabelRepository.isPresentToday()){
+            return menuRepository.delete(id);
+        }
+        else{
+            throw new ChangeDeniedException("voting already started. can't change menu");
+        }
     }
 
     @Override
