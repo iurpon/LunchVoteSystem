@@ -1,6 +1,8 @@
 DELETE FROM user_roles;
 DELETE FROM users;
+DELETE FROM menus;
 DELETE FROM restaurants;
+
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (name, email, password) VALUES
@@ -15,3 +17,8 @@ INSERT INTO restaurants (name, address) VALUES
   ('OLIVE GARDEN','NY, 1-st street 58'),
   ('MADDISON SQUARE AVENIU','NY, 2-nd street 39'),
   ('BURGER KING','NY, Washington street 2');
+
+INSERT INTO menus (description1, description2,rest_id) VALUES
+  ('Burger','Kola',100004),
+  ('Losagne','AppleJuice',100003),
+  ('Stake','Vine',100002);

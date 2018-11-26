@@ -14,6 +14,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Integer> {
 
+
     @Override
     List<Restaurant> findAll(Sort sort);
 
