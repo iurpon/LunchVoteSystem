@@ -4,7 +4,11 @@ import ru.firstproject.model.AbstractBaseEntity;
 import ru.firstproject.util.exception.ChangeDeniedException;
 import ru.firstproject.util.exception.NotFoundException;
 
+import java.time.LocalTime;
+
 public class ValidationUtil {
+    public static final LocalTime LOCAL_TIME = LocalTime.of(11,00);
+
     public static <T> T checkNotFoundWithId(T object, int id){
         if(object == null){
             throw new NotFoundException("Not found object with id = " + id);

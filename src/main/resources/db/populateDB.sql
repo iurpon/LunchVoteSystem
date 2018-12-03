@@ -1,7 +1,9 @@
 DELETE FROM user_roles;
+DELETE FROM votes;
 DELETE FROM users;
 DELETE FROM menus;
 DELETE FROM restaurants;
+
 
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
@@ -22,3 +24,6 @@ INSERT INTO menus (description1, description2,rest_id) VALUES
   ('Burger','Kola',100004),
   ('Losagne','AppleJuice',100003),
   ('Stake','Vine',100002);
+
+INSERT INTO votes (rest_id, user_id) VALUES
+  (100002,100001);

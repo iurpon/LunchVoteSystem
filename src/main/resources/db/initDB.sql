@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS votes;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS menus;
 DROP TABLE IF EXISTS restaurants;
@@ -52,4 +53,15 @@ CREATE TABLE date_label
   id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   registered       DATE DEFAULT now() NOT NULL,
   CONSTRAINT date_registered UNIQUE (registered)
+);
+
+CREATE TABLE votes
+(
+  id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  registered       DATE DEFAULT now() NOT NULL,
+  rest_id           INTEGER NOT NULL,
+  user_id           INTEGER NOT NULL,
+  FOREIGN KEY (rest_id) REFERENCES restaurants (id),
+  FOREIGN KEY (user_id) REFERENCES users (id),
+  CONSTRAINT user_vote_registered UNIQUE (registered,user_id)
 )
