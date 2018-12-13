@@ -84,7 +84,7 @@ public class UserServiceImplTest {
     public void update(){
         User user = new User(UserTestData.USER);
         user.setName("newUser");
-        service.update(user);
+        service.update(user,UserTestData.USER_ID);
         User updatedUser = service.get(UserTestData.USER_ID);
         UserTestData.assertMatch(updatedUser,user);
     }

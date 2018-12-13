@@ -15,4 +15,6 @@ public interface MenuService {
     Menu get(int id);
 
     List<Menu> getAllByDate(Date date);
+
+    void update(Menu menu, int id);
 }

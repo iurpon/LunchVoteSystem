@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -8,6 +9,7 @@
 <hr>
 <ul>
     <li><a href="users">Users</a></li>
+    <p>Русский текст</p>
 </ul>
 </body>
 </html>

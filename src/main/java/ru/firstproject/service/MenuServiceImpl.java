@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.firstproject.model.Menu;
 import ru.firstproject.repository.DateLabelRepository;
 import ru.firstproject.repository.MenuRepository;
+import ru.firstproject.util.ValidationUtil;
 import ru.firstproject.util.exception.ChangeDeniedException;
 
 import java.util.Date;
@@ -13,6 +14,7 @@ import static ru.firstproject.util.ValidationUtil.*;
 
 @Service
 public class MenuServiceImpl implements MenuService {
+
 
     @Autowired
     private MenuRepository menuRepository;
@@ -47,5 +49,11 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> getAllByDate(Date date) {
         return menuRepository.getAllByDate(date);
+    }
+
+    @Override
+    public void update(Menu menu, int id) {
+        ValidationUtil.checkCorrectId(menu,id);
+        menuRepository.save(menu);
     }
 }

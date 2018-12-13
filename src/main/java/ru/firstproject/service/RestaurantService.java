@@ -8,7 +8,7 @@ import java.util.List;
 public interface RestaurantService {
     Restaurant create(Restaurant restaurant);
 
-    Restaurant update(Restaurant restaurant);
+    Restaurant update(Restaurant restaurant, int id);
 
     // false if not found
     void delete(int id) throws NotFoundException;

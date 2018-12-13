@@ -21,7 +21,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public Restaurant update(Restaurant restaurant) {
+    public Restaurant update(Restaurant restaurant,int id) {
+        checkCorrectId(restaurant,id);
         return restaurantRepository.save(restaurant);
     }
 

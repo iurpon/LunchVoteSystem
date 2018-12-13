@@ -27,4 +27,11 @@ public class ValidationUtil {
         }
     }
 
+    public static void checkCorrectId(AbstractBaseEntity entity, int id){
+        if(entity == null) throw new IllegalArgumentException("checkCorrectId with null entiry");
+        if( id != entity.getId()){
+            throw new IllegalArgumentException("checkCorrectId failed of different id");
+        }
+    }
+
 }

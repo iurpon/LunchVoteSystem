@@ -1,0 +1,54 @@
+USER
+/rest/users/{id} GET
+/rest/users/{id} PUT
+/rest/users/{id} DELeTE
+/rest/users/     POST
+
+
+
+
+ADMIN
+/rest/users/id/vote/restId     POST
+/rest/users/id/vote/restId     PUT
+
+/rest/admin/users GET
+[{"id":100001,"name":"Admin","email":"admin@gmail.com","password":"admin","registered":1544519655801,"roles":["ROLE_ADMIN"]},
+{"id":100000,"name":"User","email":"user@yandex.ru","password":"password","registered":1544519655801,"roles":["ROLE_USER"]}]
+
+/rest/admin/users/{id} GET
+
+
+/rest/admin/restaurants GET
+[{"id":100004,"name":"BURGER KING","address":"NY, Washington street 2"},
+{"id":100003,"name":"MADDISON SQUARE AVENIU","address":"NY, 2-nd street 39"},
+{"id":100002,"name":"OLIVE GARDEN","address":"NY, 1-st street 58"}]
+
+/rest/admin/restaurants/{id} GET
+/rest/admin/restaurants/{id} DELETE
+/rest/admin/restaurants/{id} PUT
+/rest/admin/restaurants      POST
+
+/rest/admin/menus GET
+[{"id":100005,"description1":"Burger","description2":"Kola","description3":"empty"
+        ,"description4":"empty","description5":"empty","registered":1544475600000,
+        "restaurant":{"id":100004,"name":"BURGER KING","address":"NY, Washington street 2"}},
+ {"id":100006,"description1":"Losagne","description2":"AppleJuice","description3":"empty",
+        "description4":"empty","description5":"empty","registered":1544475600000,
+        "restaurant":{"id":100003,"name":"MADDISON SQUARE AVENIU","address":"NY, 2-nd street 39"}},
+ {"id":100007,"description1":"Stake","description2":"Vine","description3":"empty",
+         "description4":"empty","description5":"empty","registered":1544475600000,
+         "restaurant":{"id":100002,"name":"OLIVE GARDEN","address":"NY, 1-st street 58"}}]
+
+/rest/admin/menus/{id} GET
+/rest/admin/menus/{id} PUT
+/rest/admin/menus      POST
+/rest/admin/menus/{id} DELETE
+
+
+/rest/admin/startVote  POST
+
+
+/rest/admin/votes/100001 GET
+{"id":100008,"registered":1544475600000,
+    "restaurant":{"id":100002,"name":"OLIVE GARDEN","address":"NY, 1-st street 58"},
+    "user":{"id":100001,"name":"Admin","email":"admin@gmail.com","password":"admin","registered":1544527179828,"roles":["ROLE_ADMIN"]}}

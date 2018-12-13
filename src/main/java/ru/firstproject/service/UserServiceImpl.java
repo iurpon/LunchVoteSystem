@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.firstproject.model.User;
 import ru.firstproject.repository.UserRepository;
+import ru.firstproject.util.ValidationUtil;
 import ru.firstproject.util.exception.NotFoundException;
 
 import java.util.List;
@@ -36,7 +37,8 @@ public class UserServiceImpl  implements UserService{
     }
 
     @Override
-    public void update(User user) {
+    public void update(User user,int id) {
+        ValidationUtil.checkCorrectId(user,id);
         repository.save(user);
     }
 

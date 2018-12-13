@@ -11,6 +11,7 @@ import ru.firstproject.util.exception.TimesUpException;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 import static ru.firstproject.util.ValidationUtil.*;
 
@@ -28,16 +29,25 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     public Vote save(Vote vote,int userId) throws TimesUpException{
+        if(!vote.isNew()){
+            checkCorrectId(vote.getUser(),userId);
+        }
+
         boolean isBefore = LocalTime.now().isBefore(LOCAL_TIME);
-        logger.info("Save method. isBefore = " + isBefore);
+        logger.info("Save method voteService. is time to vote? = " + isBefore);
         if(isBefore){
             return voteRepository.save(vote);
         }else{
             Vote anyVote = voteRepository.get(new Date(),userId);
             if(anyVote == null){
-                voteRepository.save(vote);
+                return voteRepository.save(vote);
             }
         }
         throw new TimesUpException("you already voted");
+    }
+
+    @Override
+    public List<Vote> getAllByDate(Date date) {
+        return voteRepository.getAllByDate(date);
     }
 }

@@ -36,7 +36,7 @@ public class RestaurantServiceImplTest {
     public void update() throws Exception {
         Restaurant updated = new Restaurant(RESTAURANT1);
         updated.setName("New Burger King");
-        restaurantService.update(updated);
+        restaurantService.update(updated,RESTAURANT_SEQ3);
         Restaurant restaurant = restaurantService.get(RESTAURANT_SEQ3);
         assertMatch(restaurant,updated);
     }

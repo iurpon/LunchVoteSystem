@@ -11,4 +11,6 @@ public interface VoteRepository {
 
     Vote save(Vote vote);
 
+    List<Vote> getAllByDate(Date date);
+
 }

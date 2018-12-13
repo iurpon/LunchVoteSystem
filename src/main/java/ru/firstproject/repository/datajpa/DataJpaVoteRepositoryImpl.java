@@ -7,6 +7,7 @@ import ru.firstproject.model.Vote;
 import ru.firstproject.repository.VoteRepository;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
@@ -24,5 +25,9 @@ public class DataJpaVoteRepositoryImpl  implements VoteRepository{
     @Transactional
     public Vote save(Vote vote) {
         return crudVoteRepository.save(vote);
+    }
+
+    public List<Vote> getAllByDate(Date date){
+        return crudVoteRepository.getAllByRegistered(date);
     }
 }

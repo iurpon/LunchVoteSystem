@@ -3,7 +3,7 @@ package ru.firstproject;
 public class AuthorizedUser {
     private static int id ;
     public static int id() {
-        return 1;
+        return 100000;
     }
 
     public static int getId() {
