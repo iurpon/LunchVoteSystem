@@ -2,13 +2,16 @@ package ru.firstproject.web.user;
 
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.firstproject.model.Menu;
 import ru.firstproject.model.User;
 import org.springframework.http.MediaType;
 import ru.firstproject.model.Vote;
 
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -38,20 +41,28 @@ public class RestUserController  extends AbstractUserController{
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public User create(@RequestBody User user){
-        return userService.create(user);
+    public ResponseEntity<User> createWithLocation(@RequestBody User user){
+        User created = userService.create(user);
+
+        URI newUriOfResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                                .path(REST_URL + "/id")
+                                .buildAndExpand(created.getId()).toUri();
+
+        return ResponseEntity.created(newUriOfResource).body(created);
+
+
     }
 
-    @PostMapping(value = "/id/vote",consumes = MediaType.APPLICATION_JSON_VALUE
+    @PostMapping(value = "/{id}/vote",consumes = MediaType.APPLICATION_JSON_VALUE
                                         ,produces = MediaType.APPLICATION_JSON_VALUE)
     public Vote createVote(@PathVariable("id") int id,@RequestBody Menu menu){
         Vote vote = new Vote();
-        vote.setUser(super.get(id));
+        vote.setUser(userService.get(id));
         vote.setRestaurant(menu.getRestaurant());
         return voteService.save(vote,id);
     }
 
-    @PutMapping(value = "/id/vote",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}/vote",consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateVote(@PathVariable("id") int id,@RequestBody Vote vote){
         voteService.save(vote,id);
     }

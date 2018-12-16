@@ -1,12 +1,19 @@
 package ru.firstproject;
 
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultMatcher;
 import ru.firstproject.model.Role;
 import ru.firstproject.model.User;
+import ru.firstproject.util.json.JsonUtil;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static ru.firstproject.model.AbstractBaseEntity.START_SEQ;
+import static ru.firstproject.util.json.JsonUtil.writeIgnoreProps;
+
 
 public class UserTestData {
     public static final int USER_ID = START_SEQ;
@@ -25,5 +32,26 @@ public class UserTestData {
 
     public static void assertMatch(Iterable<User> actual, Iterable<User> expected) {
         assertThat(actual).usingElementComparatorIgnoringFields("registered", "roles").isEqualTo(expected);
+    }
+
+    public static <T> ResultMatcher contentJson(T... expected) {
+        return content().json(writeIgnoreProps(Arrays.asList(expected), "registered","restaurant"));
+    }
+
+    public static <T> ResultMatcher contentJson(T expected) {
+        return content().json(writeIgnoreProps(expected, "registered","restaurant"));
+    }
+
+    public static <T> T readFromJson(ResultActions action, Class<T> clazz) throws UnsupportedEncodingException {
+        return JsonUtil.readValue(getContent(action), clazz);
+    }
+
+    public static String getContent(ResultActions action) throws UnsupportedEncodingException {
+        return action.andReturn().getResponse().getContentAsString();
+    }
+
+    public static ResultActions print(ResultActions action) throws UnsupportedEncodingException {
+        System.out.println(getContent(action));
+        return action;
     }
 }

@@ -52,3 +52,9 @@ ADMIN
 {"id":100008,"registered":1544475600000,
     "restaurant":{"id":100002,"name":"OLIVE GARDEN","address":"NY, 1-st street 58"},
     "user":{"id":100001,"name":"Admin","email":"admin@gmail.com","password":"admin","registered":1544527179828,"roles":["ROLE_ADMIN"]}}
+
+
+
+
+
+

@@ -7,7 +7,7 @@ import ru.firstproject.util.exception.NotFoundException;
 import java.time.LocalTime;
 
 public class ValidationUtil {
-    public static final LocalTime LOCAL_TIME = LocalTime.of(11,00);
+    public static final LocalTime LOCAL_TIME = LocalTime.of(23,00);
 
     public static <T> T checkNotFoundWithId(T object, int id){
         if(object == null){

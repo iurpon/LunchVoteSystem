@@ -22,8 +22,8 @@ INSERT INTO restaurants (name, address) VALUES
 
 INSERT INTO menus (description1, description2,rest_id) VALUES
   ('Burger','Kola',100004),
-  ('Losagne','AppleJuice',100003),
-  ('Stake','Vine',100002);
+  ('Losagne','AppleJuice',100003);
+
 
 INSERT INTO votes (rest_id, user_id) VALUES
   (100002,100001);

@@ -44,8 +44,9 @@ CREATE TABLE menus
   description4             VARCHAR    DEFAULT 'empty'            NOT NULL,
   description5             VARCHAR    DEFAULT 'empty'            NOT NULL,
   registered       DATE DEFAULT now() NOT NULL,
-  rest_id INTEGER NOT NULL,
-  FOREIGN KEY (rest_id) REFERENCES restaurants (id)
+  rest_id          INTEGER NOT NULL,
+  CONSTRAINT registered_rest_idx UNIQUE (rest_id, registered),
+  FOREIGN KEY (rest_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
 
 CREATE TABLE date_label
@@ -61,7 +62,7 @@ CREATE TABLE votes
   registered       DATE DEFAULT now() NOT NULL,
   rest_id           INTEGER NOT NULL,
   user_id           INTEGER NOT NULL,
-  FOREIGN KEY (rest_id) REFERENCES restaurants (id),
-  FOREIGN KEY (user_id) REFERENCES users (id),
+  FOREIGN KEY (rest_id) REFERENCES restaurants (id) ON DELETE CASCADE ,
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ,
   CONSTRAINT user_vote_registered UNIQUE (registered,user_id)
 )

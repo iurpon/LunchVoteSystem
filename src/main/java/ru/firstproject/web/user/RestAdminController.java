@@ -90,11 +90,7 @@ public class RestAdminController  extends AbstractUserController{
         return dateLabelService.startVoting();
     }
 
-/*//Vote
-    @GetMapping(value = "/rest/admin/votes/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Vote getUserTodayVote(@PathVariable("id") int id){
-        return voteService.get(new Date(),id);
-    }*/
+
 
 
 }

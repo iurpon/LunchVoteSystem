@@ -2,6 +2,8 @@ package ru.firstproject;
 
 
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -13,9 +15,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
-import ru.firstproject.service.MenuService;
-import ru.firstproject.service.UserService;
-import ru.firstproject.service.VoteService;
+import ru.firstproject.service.*;
 
 import javax.annotation.PostConstruct;
 
@@ -26,9 +26,10 @@ import javax.annotation.PostConstruct;
 })
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-//@Transactional
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Transactional
+//@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class AbstractControllerTest {
+    protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();
 
@@ -47,6 +48,12 @@ public class AbstractControllerTest {
 
     @Autowired
     protected VoteService voteService;
+
+    @Autowired
+    protected RestaurantService restaurantService;
+
+    @Autowired
+    protected DateLabelService dateLabelService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
