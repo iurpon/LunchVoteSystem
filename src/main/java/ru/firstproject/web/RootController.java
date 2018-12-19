@@ -21,16 +21,4 @@ public class RootController {
         return "index";
     }
 
-    @GetMapping("/users")
-    public String users(Model model) {
-        model.addAttribute("users", service.getAll());
-        return "users";
-    }
-
-    @PostMapping("/users")
-    public String setUser(HttpServletRequest request) {
-        int userId = Integer.valueOf(request.getParameter("userId"));
-        AuthorizedUser.setId(userId);
-        return "redirect:meals";
-    }
 }

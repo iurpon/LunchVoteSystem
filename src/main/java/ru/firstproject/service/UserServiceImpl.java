@@ -1,7 +1,11 @@
 package ru.firstproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.firstproject.AuthorizedUser;
 import ru.firstproject.model.User;
 import ru.firstproject.repository.UserRepository;
 import ru.firstproject.util.ValidationUtil;
@@ -9,8 +13,8 @@ import ru.firstproject.util.exception.NotFoundException;
 
 import java.util.List;
 
-@Service
-public class UserServiceImpl  implements UserService{
+@Service("userService")
+public class UserServiceImpl  implements UserService, UserDetailsService{
     @Autowired
     private UserRepository repository;
 
@@ -45,5 +49,14 @@ public class UserServiceImpl  implements UserService{
     @Override
     public List<User> getAll() {
         return repository.getAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repository.getByEmail(email);
+        if(user == null){
+            throw new UsernameNotFoundException("User " + email + " not found");
+        }
+        return new AuthorizedUser(user);
     }
 }

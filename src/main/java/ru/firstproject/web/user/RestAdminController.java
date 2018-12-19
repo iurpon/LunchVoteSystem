@@ -3,6 +3,7 @@ package ru.firstproject.web.user;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import ru.firstproject.AuthorizedUser;
 import ru.firstproject.model.Menu;
 import ru.firstproject.model.Restaurant;
 import ru.firstproject.model.User;
@@ -51,6 +52,7 @@ public class RestAdminController  extends AbstractUserController{
 
     @GetMapping(value = "/rest/admin/users/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public User getUser(@PathVariable("id") int id){
+        AuthorizedUser.safeGet();
         return userService.get(id);
     }
 

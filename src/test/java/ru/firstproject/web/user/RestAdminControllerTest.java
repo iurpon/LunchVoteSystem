@@ -3,14 +3,13 @@ package ru.firstproject.web.user;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.ResultActions;
 import ru.firstproject.AbstractControllerTest;
 import ru.firstproject.MenuTestData;
 import ru.firstproject.model.Menu;
 import ru.firstproject.model.Restaurant;
-import ru.firstproject.util.json.JacksonObjectMapper;
 import ru.firstproject.util.json.JsonUtil;
+import static ru.firstproject.UserTestData.*;
 
 
 import java.util.Arrays;
@@ -22,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.firstproject.RestaurantTestData.*;
-import static ru.firstproject.UserTestData.*;
+
 
 public class RestAdminControllerTest  extends AbstractControllerTest{
     private final String REST_ADMIN_URL = "/rest/admin/";
@@ -32,6 +31,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
         Restaurant updated = new Restaurant(RESTAURANT1);
         updated.setName("new updated name");
         mockMvc.perform(put(REST_ADMIN_URL + "restaurants/" + RESTAURANT_SEQ3)
+                        .with(userHttpBasic(ADMIN))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
@@ -44,6 +44,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
     public void createRestaurant() throws Exception {
         Restaurant restaurant = new Restaurant(null, "Bussines Center","Chicago, Washington Aveniu" );
         ResultActions resultActions = mockMvc.perform(post(REST_ADMIN_URL + "/restaurants")
+                .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(restaurant)))
                 .andExpect(status().isOk());
@@ -56,7 +57,8 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
     @Test
     public void deleteRestaurant() throws Exception {
         Restaurant restaurant = new Restaurant(null, "Bussines Center","Chicago, Washington Aveniu" );
-        ResultActions resultActions = mockMvc.perform(delete(REST_ADMIN_URL + "restaurants/" + RESTAURANT_SEQ3))
+        ResultActions resultActions = mockMvc.perform(delete(REST_ADMIN_URL + "restaurants/" + RESTAURANT_SEQ3)
+                                                       .with(userHttpBasic(ADMIN)))
                                              .andExpect(status().isNoContent());
 
 
@@ -66,7 +68,8 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
 
     @Test
     public void getRestaurant() throws Exception {
-        mockMvc.perform(get(REST_ADMIN_URL + "restaurants/" + RESTAURANT_SEQ3))
+        mockMvc.perform(get(REST_ADMIN_URL + "restaurants/" + RESTAURANT_SEQ3)
+                        .with(userHttpBasic(ADMIN)))
                         .andDo(print())
                         .andExpect(status().isOk())
                         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -77,7 +80,8 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
 
     @Test
     public void getAllRestaurants() throws Exception {
-        mockMvc.perform(get(REST_ADMIN_URL + "restaurants"))
+        mockMvc.perform(get(REST_ADMIN_URL + "restaurants")
+                .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -87,20 +91,31 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
 
     @Test
     public void getAllUsers() throws Exception {
-        mockMvc.perform(get(REST_ADMIN_URL + "users"))
+        mockMvc.perform(get(REST_ADMIN_URL + "users").with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
         Assert.assertEquals(userService.getAll().size(), 2);
         assertMatch(userService.getAll(), ADMIN,USER);
         MenuTestData.assertMatch(userService.getAll(), Arrays.asList(ADMIN,USER),"registered");
+    }
 
+    @Test
+    public void testGetUnauth() throws Exception {
+        mockMvc.perform(get(REST_ADMIN_URL + "users"))
+                .andExpect(status().isUnauthorized());
+    }
 
+    @Test
+    public void testGetForbidden() throws Exception {
+        mockMvc.perform(get(REST_ADMIN_URL + "users")
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isForbidden());
     }
 
     @Test
     public void getUser() throws Exception {
-        mockMvc.perform(get(REST_ADMIN_URL + "users/ + " + ADMIN_ID))
+        mockMvc.perform(get(REST_ADMIN_URL + "users/ + " + ADMIN_ID).with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -109,7 +124,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
 
     @Test
     public void getTodayMenus() throws Exception {
-        mockMvc.perform(get(REST_ADMIN_URL + "menus"))
+        mockMvc.perform(get(REST_ADMIN_URL + "menus").with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -118,7 +133,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
 
     @Test
     public void getMenu() throws Exception {
-        mockMvc.perform(get(REST_ADMIN_URL + "menus/" + MenuTestData.MENU_SEQ2))
+        mockMvc.perform(get(REST_ADMIN_URL + "menus/" + MenuTestData.MENU_SEQ2).with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -130,7 +145,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
 
         Menu expected  = new Menu(MenuTestData.MENU3);
         expected.setRestaurant(RESTAURANT1);
-        ResultActions resultActions = mockMvc.perform(post(REST_ADMIN_URL + "menus")
+        ResultActions resultActions = mockMvc.perform(post(REST_ADMIN_URL + "menus").with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected)))
                 .andExpect(status().isOk());
@@ -143,7 +158,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
 
     @Test
     public void deleteMenu() throws Exception {
-        mockMvc.perform(delete(REST_ADMIN_URL + "menus/" + MenuTestData.MENU_SEQ2))
+        mockMvc.perform(delete(REST_ADMIN_URL + "menus/" + MenuTestData.MENU_SEQ2).with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         Assert.assertEquals(menuService.getAllByDate(new Date()).size(),1);
@@ -156,7 +171,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
         Menu updated = new Menu(MenuTestData.MENU1);
         updated.setDescription1("New Description1");
 
-        mockMvc.perform(put(REST_ADMIN_URL+ "menus/" + MenuTestData.MENU_SEQ1)
+        mockMvc.perform(put(REST_ADMIN_URL+ "menus/" + MenuTestData.MENU_SEQ1).with(userHttpBasic(ADMIN))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
@@ -165,7 +180,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
 
     @Test
     public void startVoting() throws Exception {
-        mockMvc.perform(post(REST_ADMIN_URL + "startVote"));
+        mockMvc.perform(post(REST_ADMIN_URL + "startVote").with(userHttpBasic(ADMIN)));
         Assert.assertEquals(dateLabelService.isPresentToday(),true);
     }
 
