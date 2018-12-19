@@ -96,4 +96,10 @@ public class RestUserController  extends AbstractUserController{
         log.info("GET mapping to /text");
         return String.format("Русский текст");
     }
+
+
+    @GetMapping(value = "/{id}/menu", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Menu> getTodayMenu(@PathVariable("id") int id) {
+        return menuService.getAllByDate(new Date());
+    }
 }
