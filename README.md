@@ -6,12 +6,12 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 </path></svg></a>Technologies used:</h2>
 <ul>
 <li>Java 8</li>
-<li>Spring 5: Core, WebMVC, Data JPA, Security, Test</li>
+<li>Spring 5: Data JPA, Security, Test</li>
 <li>Hibernate 5 ORM</li>
 <li>Logback</li>
-<li>EHcache 3</li>
-<li>JUnit, AssertJ</li>
-<li>Jackson to work with JSON data</li>
-<li>HSQLDB database</li>
-<li>Maven for build &amp; dependency management</li>
+<li>JUnit , AssertJ, Hamcrest, JsonAssert</li>
+<li>Jackson</li>
+<li>Postgres database</li>
+<li>Maven 3</li>
+<li>Tomcat 8</li>
 </ul>
