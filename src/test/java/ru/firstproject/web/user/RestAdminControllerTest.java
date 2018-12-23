@@ -56,8 +56,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
     }
     @Test
     public void deleteRestaurant() throws Exception {
-        Restaurant restaurant = new Restaurant(null, "Bussines Center","Chicago, Washington Aveniu" );
-        ResultActions resultActions = mockMvc.perform(delete(REST_ADMIN_URL + "restaurants/" + RESTAURANT_SEQ3)
+         mockMvc.perform(delete(REST_ADMIN_URL + "restaurants/" + RESTAURANT_SEQ3)
                                                        .with(userHttpBasic(ADMIN)))
                                              .andExpect(status().isNoContent());
 

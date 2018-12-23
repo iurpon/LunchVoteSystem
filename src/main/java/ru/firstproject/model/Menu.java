@@ -15,6 +15,10 @@ public class Menu extends AbstractBaseEntity {
 
     private Date registered = new Date();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "rest_id")
+    private Restaurant restaurant;
+
     public Menu() {
     }
 
@@ -38,9 +42,7 @@ public class Menu extends AbstractBaseEntity {
         description5 = menu.getDescription5();
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rest_id")
-    private Restaurant restaurant;
+
 
     public Restaurant getRestaurant() {
         return restaurant;

@@ -17,4 +17,15 @@ public class ErrorInfo {
         this.detail = detail;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public ErrorType getType() {
+        return type;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
 }

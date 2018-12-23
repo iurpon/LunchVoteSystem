@@ -58,7 +58,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public void update(Menu menu, int id) {
-        ValidationUtil.checkCorrectId(menu,id);
+        checkCorrectId(menu,id);
         save(menu);
     }
 }

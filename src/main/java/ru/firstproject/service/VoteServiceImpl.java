@@ -33,11 +33,11 @@ public class VoteServiceImpl implements VoteService {
         if(!vote.isNew()){
             checkCorrectId(vote.getUser(),userId);
         }
-        if(ValidationUtil.LOCAL_TIME == null){
-            ValidationUtil.setLocalTime(LocalTime.of(11,00));
+        if(LOCAL_TIME == null){
+            setLocalTime(LocalTime.of(11,0));
         }
 
-        boolean isBefore = LocalTime.now().isBefore(ValidationUtil.getLocalTime());
+        boolean isBefore = LocalTime.now().isBefore(getLocalTime());
         logger.info("Save method voteService. is time to vote? = " + isBefore);
         if(isBefore){
             return voteRepository.save(vote);

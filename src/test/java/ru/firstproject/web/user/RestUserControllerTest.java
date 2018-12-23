@@ -66,7 +66,7 @@ public class RestUserControllerTest extends AbstractControllerTest {
         newMenu.setRestaurant(RESTAURANT1);
 
 
-        ResultActions resultActions = mockMvc.perform(post(REST_USER_URL + "/" + USER_ID + "/vote")
+         mockMvc.perform(post(REST_USER_URL + "/" + USER_ID + "/vote")
                                                 .contentType(MediaType.APPLICATION_JSON)
                                                 .with(userHttpBasic(USER))
                                                 .content(JsonUtil.writeValue(newMenu)))
@@ -92,7 +92,7 @@ public class RestUserControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
         Assert.assertEquals(voteService.getAllByDate(new Date()).size(),1);
-        ValidationUtil.LOCAL_TIME = LocalTime.of(11,00);
+        ValidationUtil.LOCAL_TIME = LocalTime.of(11,0);
     }
 
     @Test
@@ -110,7 +110,7 @@ public class RestUserControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isConflict());
 
-        ValidationUtil.LOCAL_TIME = LocalTime.of(11,00);
+        ValidationUtil.LOCAL_TIME = LocalTime.of(11,0);
     }
 
 }

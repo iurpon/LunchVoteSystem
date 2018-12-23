@@ -1,11 +1,7 @@
 package ru.firstproject;
 
 
-import ru.firstproject.model.AbstractBaseEntity;
 import ru.firstproject.model.Menu;
-
-import java.util.Arrays;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.firstproject.model.AbstractBaseEntity.START_SEQ;
 
@@ -22,10 +18,6 @@ public class MenuTestData {
     public static <T> void assertMatch(T actual, T expected,String ... ignoringFields) {
         assertThat(actual).isEqualToIgnoringGivenFields(expected,ignoringFields);
     }
-
-/*    public static <T extends AbstractBaseEntity> void assertMatch(Iterable<T> actual, T... expected,String... ignoringFields) {
-        assertMatch(actual, Arrays.asList(expected));
-    }*/
 
     public static <T> void assertMatch(Iterable<T> actual, Iterable<T> expected,String ... ignoringFields) {
         assertThat(actual).usingElementComparatorIgnoringFields(ignoringFields).isEqualTo(expected);
