@@ -115,11 +115,18 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
 
     @Test
     public void getUser() throws Exception {
-        mockMvc.perform(get(REST_ADMIN_URL + "users/ + " + ADMIN_ID).with(userHttpBasic(ADMIN)))
+        mockMvc.perform(get(REST_ADMIN_URL + "users/" + ADMIN_ID).with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(ADMIN));
+    }
+
+    @Test
+    public void getUserWrongId() throws Exception {
+        mockMvc.perform(get(REST_ADMIN_URL + "users/" + 1).with(userHttpBasic(ADMIN)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
@@ -182,6 +189,43 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
     public void startVoting() throws Exception {
         mockMvc.perform(post(REST_ADMIN_URL + "startVote").with(userHttpBasic(ADMIN)));
         Assert.assertEquals(dateLabelService.isPresentToday(),true);
+    }
+
+    @Test
+    public void updateMenuDenied() throws Exception {
+        if(dateLabelService.startVoting()){
+            logger.info("vote started");
+        }
+
+        Menu updated = new Menu(MenuTestData.MENU1);
+        updated.setDescription1("New Description1");
+
+        mockMvc.perform(put(REST_ADMIN_URL+ "menus/" + MenuTestData.MENU_SEQ1).with(userHttpBasic(ADMIN))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(updated)))
+                .andExpect(status().isConflict());
+
+    }
+
+    @Test
+    public void deleteMenuDenied() throws Exception {
+        if(dateLabelService.startVoting()){
+            logger.info("vote started");
+        }
+
+        mockMvc.perform(delete(REST_ADMIN_URL + "menus/" + MenuTestData.MENU_SEQ2).with(userHttpBasic(ADMIN)))
+                .andDo(print())
+                .andExpect(status().isConflict());
+
+    }
+
+    @Test
+    public void startVotingTwiceDenied() throws Exception {
+        dateLabelService.startVoting();
+
+        mockMvc.perform(post(REST_ADMIN_URL + "startVote").with(userHttpBasic(ADMIN)))
+                        .andExpect(status().isOk());
+
     }
 
 }

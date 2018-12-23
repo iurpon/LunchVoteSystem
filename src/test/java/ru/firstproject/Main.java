@@ -15,12 +15,13 @@ import static ru.firstproject.UserTestData.*;
 public class Main {
     public static void main(String[] args) {
         // java 7 Automatic resource management
-/*        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml"
-                                                                                                    ,"spring/spring-db.xml")) {
+        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml"
+                                                                                                    ,"spring/spring-db.xml"
+                                                                             ,"spring/spring-mvc.xml")) {
             Stream.of(appCtx.getBeanDefinitionNames()).forEach(System.out::println);
 
-        }*/
-        ObjectMapper objectMapper = new ObjectMapper();
+        }
+/*        ObjectMapper objectMapper = new ObjectMapper();
         try {
             String jsonADMIN = objectMapper.writeValueAsString(ADMIN);
             System.out.println(jsonADMIN);
@@ -35,7 +36,7 @@ public class Main {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 }

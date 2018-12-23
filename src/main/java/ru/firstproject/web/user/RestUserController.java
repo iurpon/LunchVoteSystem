@@ -10,6 +10,7 @@ import ru.firstproject.model.Menu;
 import ru.firstproject.model.User;
 import org.springframework.http.MediaType;
 import ru.firstproject.model.Vote;
+import ru.firstproject.util.exception.MenuNotReadyException;
 
 import java.net.URI;
 import java.util.Date;
@@ -19,14 +20,14 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping(RestUserController.REST_URL)
+@RequestMapping(RestUserController.REST_USER_URL)
 public class RestUserController  extends AbstractUserController{
-    static final String REST_URL = "/rest/users";
+    static final String REST_USER_URL = "/rest/users";
 
-    @Override
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User get(@PathVariable("id") int id) {
-        return userService.get(id);
+
+    @GetMapping(value = "/{id}/users/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public User get(@PathVariable("id") int id,@PathVariable("userId") int userId) {
+        return userService.get(userId);
     }
 
     @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -45,7 +46,7 @@ public class RestUserController  extends AbstractUserController{
         User created = userService.create(user);
 
         URI newUriOfResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                                .path(REST_URL + "/id")
+                                .path(REST_USER_URL + "/id")
                                 .buildAndExpand(created.getId()).toUri();
 
         return ResponseEntity.created(newUriOfResource).body(created);
@@ -100,6 +101,10 @@ public class RestUserController  extends AbstractUserController{
 
     @GetMapping(value = "/{id}/menu", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> getTodayMenu(@PathVariable("id") int id) {
-        return menuService.getAllByDate(new Date());
+        List<Menu> allByDate = menuService.getAllByDate(new Date());
+        if(allByDate.isEmpty()){
+            throw new MenuNotReadyException("Menu not ready. Try again later");
+        }
+        return allByDate;
     }
 }

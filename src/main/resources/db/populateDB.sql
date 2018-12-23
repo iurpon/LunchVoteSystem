@@ -3,6 +3,7 @@ DELETE FROM votes;
 DELETE FROM users;
 DELETE FROM menus;
 DELETE FROM restaurants;
+DELETE FROM date_label;
 
 
 ALTER SEQUENCE global_seq RESTART WITH 100000;

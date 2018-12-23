@@ -29,8 +29,6 @@ public class VoteServiceImplTest {
     @Test
     public void get() throws Exception {
         Vote vote = voteService.get(new Date(),ADMIN_ID);
-        System.out.println(vote);
-        System.out.println(VOTE1);
         assertMatch(vote,VOTE1,"registered","user","restaurant");
     }
 

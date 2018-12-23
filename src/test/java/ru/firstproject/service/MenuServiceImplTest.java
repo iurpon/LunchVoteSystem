@@ -43,9 +43,9 @@ public class MenuServiceImplTest {
     @Test
     public void save() throws Exception {
         Menu menu = new Menu(null,"HotDog","Milk Cocktail");
-        menu.setRestaurant(RESTAURANT1);
+        menu.setRestaurant(RESTAURANT3);
         menuService.save(menu);
-        assertEquals(4,menuService.getAllByDate(new Date()).size());
+        assertEquals(3,menuService.getAllByDate(new Date()).size());
     }
 
     @Test(expected = ChangeDeniedException.class)
@@ -54,20 +54,20 @@ public class MenuServiceImplTest {
         Menu menu = new Menu(null,"HotDog","Milk Cocktail");
         menu.setRestaurant(RESTAURANT1);
         menuService.save(menu);
-        assertEquals(4,menuService.getAllByDate(new Date()).size());
+        assertEquals(3,menuService.getAllByDate(new Date()).size());
     }
 
     @Test
     public void delete() throws Exception {
         menuService.delete(MENU_SEQ1);
-        assertMatch(menuService.getAllByDate(new Date()),Arrays.asList(MENU2,MENU3),"registered","restaurant");
+        assertMatch(menuService.getAllByDate(new Date()),Arrays.asList(MENU2),"registered","restaurant");
     }
 
     @Test(expected = ChangeDeniedException.class)
     public void deleteDenied() throws Exception {
         dateLabelService.startVoting();
         menuService.delete(MENU_SEQ1);
-        assertMatch(menuService.getAllByDate(new Date()),Arrays.asList(MENU2,MENU3),"registered","restaurant");
+        assertMatch(menuService.getAllByDate(new Date()),Arrays.asList(MENU2),"registered","restaurant");
     }
 
     @Test
@@ -85,7 +85,7 @@ public class MenuServiceImplTest {
     public void getAllByDate() throws Exception {
         Date date = new Date();
         List<Menu> list = menuService.getAllByDate(date);
-        assertMatch(list, Arrays.asList(MENU1,MENU2,MENU3),"restaurant","registered");
+        assertMatch(list, Arrays.asList(MENU1,MENU2),"restaurant","registered");
         list.stream().forEach(System.out::println);
     }
 }

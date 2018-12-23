@@ -8,6 +8,7 @@ import static java.util.Objects.requireNonNull;
 
 
 public class AuthorizedUser  extends org.springframework.security.core.userdetails.User{
+    private static final long serialVersionUID = 1L;
 
     public static int id() {
         return getId();

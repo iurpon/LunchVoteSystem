@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.firstproject.model.Vote;
 import ru.firstproject.repository.VoteRepository;
+import ru.firstproject.util.ValidationUtil;
 import ru.firstproject.util.exception.NotFoundException;
 import ru.firstproject.util.exception.TimesUpException;
 
@@ -32,8 +33,11 @@ public class VoteServiceImpl implements VoteService {
         if(!vote.isNew()){
             checkCorrectId(vote.getUser(),userId);
         }
+        if(ValidationUtil.LOCAL_TIME == null){
+            ValidationUtil.setLocalTime(LocalTime.of(11,00));
+        }
 
-        boolean isBefore = LocalTime.now().isBefore(LOCAL_TIME);
+        boolean isBefore = LocalTime.now().isBefore(ValidationUtil.getLocalTime());
         logger.info("Save method voteService. is time to vote? = " + isBefore);
         if(isBefore){
             return voteRepository.save(vote);

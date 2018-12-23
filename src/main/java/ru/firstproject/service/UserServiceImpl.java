@@ -30,7 +30,11 @@ public class UserServiceImpl  implements UserService, UserDetailsService{
 
     @Override
     public User get(int id) throws NotFoundException {
-        return repository.get(id);
+        User user = repository.get(id);
+        if(user == null){
+            throw new NotFoundException("no user wiht id = " + id);
+        }
+        return  user;
     }
 
     @Override
