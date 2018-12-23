@@ -3,7 +3,6 @@ package ru.firstproject.web.user;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.ResultActions;
 import ru.firstproject.AbstractControllerTest;
 import ru.firstproject.MenuTestData;
 import ru.firstproject.model.Menu;
