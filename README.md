@@ -23,21 +23,14 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <li>
 <p><strong>Usage: </strong> <code> GET rest/users/{id}</code></p>
 </li>
-<p><strong>Success Response:</strong></p>
-<li><strong>Code:</strong> 200 <br>
-<strong>Content:</strong> <code>{ id : 12, name : "Michael Bloom" }</code></li>
-</ul>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
+<strong>Content:</strong> <code>{ id : 12, name : "Michael Bloom" }</code>
 </li>
-<li>
-<p><strong>Error Response:</strong></p>
-<ul>
-<li><strong>Code:</strong> 404 NOT FOUND <br>
-<strong>Content:</strong> <code>{ error : "User doesn't exist" }</code></li>
-</ul>
-<p>OR</p>
-<ul>
-<li><strong>Code:</strong> 401 UNAUTHORIZED <br>
-<strong>Content:</strong> <code>{ error : "You are unauthorized to make this request." }</code></li>
-</ul>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 404 NOT FOUND <br>
+<strong>Content:</strong> <code>{ error : "User doesn't exist" }</code>
 </li>
-<li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 401 UNAUTHORIZED <br>
+<strong>Content:</strong> <code>{ error : "You are unauthorized to make this request." }</code>
+</li>
+</ul>
+
