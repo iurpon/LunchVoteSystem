@@ -16,6 +16,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <li>Tomcat 8</li>
 </ul>
 <h2>cURL command to get data for voting and vote</h2>
+
 #### Get Today Menus
 <code>curl -s http://localhost:8080/voteSystem/rest/users/{id}/menu --user user@yandex.ru:password</code>
 
