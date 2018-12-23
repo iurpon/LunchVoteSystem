@@ -21,7 +21,11 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <code>curl -s http://localhost:8080/voteSystem/rest/users/{id}/menu --user user@yandex.ru:password</code>
 
 #### User vote 
-<code>curl -s -X POST -d '{"id":100005,"description1":"Burger","description2":"Kola","description3":"empty","description4":"empty","description5":"empty","registered":1544475600000,"restaurant":{"id":100004,"name":"BURGER KING","address":"NY, Washington street 2"}}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voteSystem/rest/users/100000/vote --user user@yandex.ru:password`</code>
+<code>curl -s -X POST -d '{"id":100005,"description1":"Burger","description2":"Kola","description3":"empty","description4":"empty","description5":"empty","registered":1544475600000,"restaurant":{"id":100004,"name":"BURGER KING","address":"NY, Washington street 2"}}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voteSystem/rest/users/100000/vote --user user@yandex.ru:password</code>
+
+#### Update User vote 
+<code>curl -s -X PUT -d '{"id":100008,"registered":1544475600000,"restaurant":{"id":100004,"name":"BURGER KING","address":"NY, Washington street 2"},"user":{"id":100001,"name":"Admin","email":"admin@gmail.com","password":"admin","registered":1544527179828,"roles":["ROLE_ADMIN"]}}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/voteSystem/rest/users/100001/vote --user user@yandex.ru:password</code>
+
 
 
 <h2>Application API:</h2>
