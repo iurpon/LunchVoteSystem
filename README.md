@@ -15,3 +15,30 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <li>Maven 3</li>
 <li>Tomcat 8</li>
 </ul>
+
+<h2>Application API:</h2>
+<h3><strong>Show User</strong></h3>
+<p>Returns json data about a single user.</p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> GET rest/users/{id}<c/ode></p>
+</li>
+<p><strong>Success Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 200 <br>
+<strong>Content:</strong> <code>{ id : 12, name : "Michael Bloom" }</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Error Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 404 NOT FOUND <br>
+<strong>Content:</strong> <code>{ error : "User doesn't exist" }</code></li>
+</ul>
+<p>OR</p>
+<ul>
+<li><strong>Code:</strong> 401 UNAUTHORIZED <br>
+<strong>Content:</strong> <code>{ error : "You are unauthorized to make this request." }</code></li>
+</ul>
+</li>
+<li>
