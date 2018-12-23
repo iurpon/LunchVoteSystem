@@ -21,10 +21,9 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p>Returns json data about a single user.</p>
 <ul>
 <li>
-<p><strong>Usage: </strong> <code> GET rest/users/{id}<c/ode></p>
+<p><strong>Usage: </strong> <code> GET rest/users/{id}</code></p>
 </li>
 <p><strong>Success Response:</strong></p>
-<ul>
 <li><strong>Code:</strong> 200 <br>
 <strong>Content:</strong> <code>{ id : 12, name : "Michael Bloom" }</code></li>
 </ul>
