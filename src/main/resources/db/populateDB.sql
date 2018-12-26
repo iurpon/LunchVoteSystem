@@ -27,4 +27,4 @@ INSERT INTO menus (description1, description2,rest_id) VALUES
 
 
 INSERT INTO votes (rest_id, user_id) VALUES
-  (100002,100001);
+  (100003,100001);

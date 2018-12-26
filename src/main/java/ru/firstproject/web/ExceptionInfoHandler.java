@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ExceptionInfoHandler {
     private static Logger log = LoggerFactory.getLogger(ExceptionInfoHandler.class);
 
-    //  http://stackoverflow.com/a/22358422/548473
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(NotFoundException.class)
     public ErrorInfo handleNotFoundError(HttpServletRequest req, NotFoundException e) {
@@ -53,13 +52,11 @@ public class ExceptionInfoHandler {
     }
 
     private static ErrorInfo logAndGetErrorInfo(HttpServletRequest req, Exception e, boolean logException, ErrorType errorType) {
-//        Throwable rootCause = ValidationUtil.getRootCause(e);
         if (logException) {
             log.error(errorType + " at request " + req.getRequestURL(), e);
         } else {
             log.warn("{} at request  {}: {}", errorType, req.getRequestURL(), e.toString());
         }
-
         return new ErrorInfo(req.getRequestURL(), errorType, e.toString());
     }
 }

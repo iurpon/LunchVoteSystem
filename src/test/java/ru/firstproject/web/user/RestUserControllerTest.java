@@ -29,7 +29,7 @@ public class RestUserControllerTest extends AbstractControllerTest {
 
     @Test
     public void getTest() throws Exception {
-        mockMvc.perform(get(REST_USER_URL + "/" + USER_ID + "/users/" +  ADMIN_ID).with(userHttpBasic(USER)))
+        mockMvc.perform(get(REST_USER_URL + "/" +  ADMIN_ID).with(userHttpBasic(USER)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -40,7 +40,7 @@ public class RestUserControllerTest extends AbstractControllerTest {
     public void updateTest() throws Exception {
         User updated  = new User(USER);
         updated.setName("NewUser");
-        mockMvc.perform(put(REST_USER_URL +  "/" + USER_ID).with(userHttpBasic(USER))
+        mockMvc.perform(put(REST_USER_URL + "/" + USER_ID ).with(userHttpBasic(USER))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andDo(print())
@@ -65,7 +65,7 @@ public class RestUserControllerTest extends AbstractControllerTest {
         newMenu.setRestaurant(RESTAURANT1);
 
 
-         mockMvc.perform(post(REST_USER_URL + "/" + USER_ID + "/vote")
+         mockMvc.perform(post(REST_USER_URL +  "/vote")
                                                 .contentType(MediaType.APPLICATION_JSON)
                                                 .with(userHttpBasic(USER))
                                                 .content(JsonUtil.writeValue(newMenu)))
@@ -76,33 +76,19 @@ public class RestUserControllerTest extends AbstractControllerTest {
         Assert.assertEquals(votes.size(),2);
     }
 
-    @Test
-    public void updateVote() throws Exception {
-        Vote existing = new Vote(VOTE1);
-        LocalTime localTime = LocalTime.now();
-        localTime = localTime.plusHours(1);
-        ValidationUtil.setLocalTime(localTime);
 
-
-        mockMvc.perform(put(REST_USER_URL +  "/" + ADMIN_ID + "/vote")
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(ADMIN))
-                .content(JsonUtil.writeValue(existing)))
-                .andDo(print())
-                .andExpect(status().isOk());
-        Assert.assertEquals(voteService.getAllByDate(new Date()).size(),1);
-        ValidationUtil.LOCAL_TIME = LocalTime.of(11,0);
-    }
 
     @Test
     public void updateVoteTimesUp() throws Exception {
-        Vote existing = new Vote(VOTE1);
+//        Vote existing = new Vote(VOTE1);
+        Menu existing = new Menu(MenuTestData.MENU1);
+        existing.setRestaurant(RESTAURANT2);
         LocalTime localTime = LocalTime.now();
         localTime = localTime.minusHours(1);
         ValidationUtil.setLocalTime(localTime);
 
 
-        mockMvc.perform(put(REST_USER_URL +  "/" + ADMIN_ID + "/vote")
+        mockMvc.perform(post(REST_USER_URL + "/vote")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(existing)))

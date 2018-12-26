@@ -30,24 +30,22 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     public Vote save(Vote vote,int userId) throws TimesUpException{
-        if(!vote.isNew()){
-            checkCorrectId(vote.getUser(),userId);
-        }
         if(LOCAL_TIME == null){
             setLocalTime(LocalTime.of(11,0));
         }
-
         boolean isBefore = LocalTime.now().isBefore(getLocalTime());
-        logger.info("Save method voteService. is time to vote? = " + isBefore);
-        if(isBefore){
+        logger.info("Save method voteService. is time to revote? = " + isBefore);
+        Vote anyVote = voteRepository.get(new Date(),userId);
+        if(anyVote == null){
             return voteRepository.save(vote);
         }else{
-            Vote anyVote = voteRepository.get(new Date(),userId);
-            if(anyVote == null){
+            vote.setId(anyVote.getId());
+            if(isBefore){
                 return voteRepository.save(vote);
+            }else{
+                throw new TimesUpException("you already voted");
             }
         }
-        throw new TimesUpException("you already voted");
     }
 
     @Override

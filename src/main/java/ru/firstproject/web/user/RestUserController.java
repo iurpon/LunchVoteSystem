@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.firstproject.AuthorizedUser;
 import ru.firstproject.model.Menu;
 import ru.firstproject.model.User;
 import org.springframework.http.MediaType;
@@ -25,9 +26,9 @@ public class RestUserController  extends AbstractUserController{
     static final String REST_USER_URL = "/rest/users";
 
 
-    @GetMapping(value = "/{id}/users/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public User get(@PathVariable("id") int id,@PathVariable("userId") int userId) {
-        return userService.get(userId);
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public User get(@PathVariable("id") int id) {
+        return userService.get(id);
     }
 
     @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -54,22 +55,21 @@ public class RestUserController  extends AbstractUserController{
 
     }
 
-    @PostMapping(value = "/{id}/vote",consumes = MediaType.APPLICATION_JSON_VALUE
+    @PostMapping(value = "/vote",consumes = MediaType.APPLICATION_JSON_VALUE
                                         ,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Vote createVote(@PathVariable("id") int id,@RequestBody Menu menu){
+    public Vote createVote(@RequestBody Menu menu){
+//        int id = AuthorizedUser.id();
+        User user = AuthorizedUser.get().getUser();
         Vote vote = new Vote();
-        vote.setUser(userService.get(id));
+        vote.setUser(user);
         vote.setRestaurant(menu.getRestaurant());
-        return voteService.save(vote,id);
+        return voteService.save(vote,user.getId());
     }
 
-    @PutMapping(value = "/{id}/vote",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateVote(@PathVariable("id") int id,@RequestBody Vote vote){
-        voteService.save(vote,id);
-    }
 
-    @GetMapping(value = "/{id}/statistics",produces = MediaType.APPLICATION_JSON_VALUE)
-    public String statistics(@PathVariable("id") int id){
+    @GetMapping(value = "/statistics",produces = MediaType.APPLICATION_JSON_VALUE)
+    public String statistics(){
+        int id = AuthorizedUser.id();
         List<Vote> votes = voteService.getAllByDate(new Date());
         int totalVotes = votes.size();
         String[] choise = new String[1];
