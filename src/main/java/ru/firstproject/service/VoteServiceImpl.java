@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.firstproject.model.Vote;
 import ru.firstproject.repository.VoteRepository;
-import ru.firstproject.util.ValidationUtil;
 import ru.firstproject.util.exception.NotFoundException;
 import ru.firstproject.util.exception.TimesUpException;
 
@@ -30,7 +29,7 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     public Vote save(Vote vote,int userId) throws TimesUpException{
-        if(LOCAL_TIME == null){
+        if(TIME_TO_CHANGE_MIND == null){
             setLocalTime(LocalTime.of(11,0));
         }
         boolean isBefore = LocalTime.now().isBefore(getLocalTime());

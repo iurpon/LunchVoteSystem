@@ -21,11 +21,6 @@ public class DataJpaMenuRepositoryImpl implements MenuRepository {
     }
 
     @Override
-    public int delete(int id) {
-        return menuRepository.delete(id);
-    }
-
-    @Override
     public Menu get(int id) {
         return checkNotFoundWithId(menuRepository.findById(id).orElse(null),id);
     }

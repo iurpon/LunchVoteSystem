@@ -37,16 +37,6 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public int delete(int id) {
-        if(!dateLabelRepository.isPresentToday()){
-            return menuRepository.delete(id);
-        }
-        else{
-            throw new ChangeDeniedException("voting already started. can't change menu");
-        }
-    }
-
-    @Override
     public Menu get(int id) {
         return checkNotFoundWithId(menuRepository.get(id),id);
     }

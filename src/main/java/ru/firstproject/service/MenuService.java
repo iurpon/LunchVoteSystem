@@ -8,9 +8,6 @@ import java.util.List;
 public interface MenuService {
     Menu save(Menu menu);
 
-    // false if not found
-    int delete(int id);
-
     // null if not found
     Menu get(int id);
 

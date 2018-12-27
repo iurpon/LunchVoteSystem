@@ -21,7 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static ru.firstproject.UserTestData.*;
 import static ru.firstproject.RestaurantTestData.*;
-import static ru.firstproject.VoteTestData.VOTE1;
 
 public class RestUserControllerTest extends AbstractControllerTest {
 
@@ -95,7 +94,7 @@ public class RestUserControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isConflict());
 
-        ValidationUtil.LOCAL_TIME = LocalTime.of(11,0);
+        ValidationUtil.TIME_TO_CHANGE_MIND = LocalTime.of(11,0);
     }
 
 }

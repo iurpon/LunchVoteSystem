@@ -6,14 +6,14 @@ import ru.firstproject.util.exception.NotFoundException;
 import java.time.LocalTime;
 
 public class ValidationUtil {
-    public static  LocalTime LOCAL_TIME;
+    public static  LocalTime TIME_TO_CHANGE_MIND;
 
     public static LocalTime getLocalTime() {
-        return LOCAL_TIME;
+        return TIME_TO_CHANGE_MIND == null ? LocalTime.of(11,0): TIME_TO_CHANGE_MIND;
     }
 
     public static void setLocalTime(LocalTime localTime) {
-        LOCAL_TIME = localTime;
+        TIME_TO_CHANGE_MIND = localTime;
     }
 
     public static <T> T checkNotFoundWithId(T object, int id){
