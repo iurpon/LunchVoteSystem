@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS votes;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS dishes;
 DROP TABLE IF EXISTS menus;
 DROP TABLE IF EXISTS restaurants;
 DROP TABLE IF EXISTS date_label;
@@ -38,15 +39,18 @@ CREATE TABLE restaurants
 CREATE TABLE menus
 (
   id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  description1             VARCHAR                 NOT NULL,
-  description2             VARCHAR                 NOT NULL,
-  description3             VARCHAR    DEFAULT 'empty'            NOT NULL,
-  description4             VARCHAR    DEFAULT 'empty'            NOT NULL,
-  description5             VARCHAR    DEFAULT 'empty'            NOT NULL,
   registered       DATE DEFAULT now() NOT NULL,
   rest_id          INTEGER NOT NULL,
   CONSTRAINT registered_rest_idx UNIQUE (rest_id, registered),
   FOREIGN KEY (rest_id) REFERENCES restaurants (id) ON DELETE CASCADE
+);
+CREATE TABLE dishes
+(
+  id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  registered       DATE DEFAULT now()   NOT NULL,
+  name             VARCHAR              NOT NULL,
+  price            FLOAT                NOT NULL,
+  menu_id          INTEGER NOT NULL
 );
 
 CREATE TABLE date_label
