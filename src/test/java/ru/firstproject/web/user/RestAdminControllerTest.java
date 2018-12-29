@@ -30,13 +30,13 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
     public void updateRestaurant() throws Exception {
         Restaurant updated = new Restaurant(RESTAURANT1);
         updated.setName("new updated name");
-        mockMvc.perform(put(REST_ADMIN_URL + "restaurants/" + RESTAURANT_SEQ3)
+        mockMvc.perform(put(REST_ADMIN_URL + "restaurants/" + REST_SEQ1)
                         .with(userHttpBasic(ADMIN))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
 
-        MenuTestData.assertMatch(restaurantService.get(RESTAURANT_SEQ3),updated);
+        MenuTestData.assertMatch(restaurantService.get(REST_SEQ1),updated);
 
     }
 
@@ -56,7 +56,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
     }
     @Test
     public void deleteRestaurant() throws Exception {
-         mockMvc.perform(delete(REST_ADMIN_URL + "restaurants/" + RESTAURANT_SEQ3)
+         mockMvc.perform(delete(REST_ADMIN_URL + "restaurants/" + REST_SEQ1)
                                                        .with(userHttpBasic(ADMIN)))
                                              .andExpect(status().isNoContent());
 
@@ -67,7 +67,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
 
     @Test
     public void getRestaurant() throws Exception {
-        mockMvc.perform(get(REST_ADMIN_URL + "restaurants/" + RESTAURANT_SEQ3)
+        mockMvc.perform(get(REST_ADMIN_URL + "restaurants/" + REST_SEQ1)
                         .with(userHttpBasic(ADMIN)))
                         .andDo(print())
                         .andExpect(status().isOk())
@@ -150,7 +150,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
     public void createMenu() throws Exception {
 
         Menu expected  = new Menu(MenuTestData.MENU3);
-        expected.setRestaurant(RESTAURANT1);
+//        expected.setRestaurant(RESTAURANT1);
         ResultActions resultActions = mockMvc.perform(post(REST_ADMIN_URL + "menus").with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected)))

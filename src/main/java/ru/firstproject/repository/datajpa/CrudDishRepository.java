@@ -24,5 +24,5 @@ public interface CrudDishRepository extends JpaRepository<Dish,Integer> {
     @Transactional
     int  delete(Integer integer);
 
-    List<Dish> findAllByRegisteredAndMenu_IdOrderByNameAsc(Date date, Integer menuId);
+    List<Dish> findAllByRegisteredAndRestaurant_IdOrderByIdAsc(Date date, Integer restId);
 }

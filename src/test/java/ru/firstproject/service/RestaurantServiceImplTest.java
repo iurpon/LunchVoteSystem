@@ -36,14 +36,14 @@ public class RestaurantServiceImplTest {
     public void update() throws Exception {
         Restaurant updated = new Restaurant(RESTAURANT1);
         updated.setName("New Burger King");
-        restaurantService.update(updated,RESTAURANT_SEQ3);
-        Restaurant restaurant = restaurantService.get(RESTAURANT_SEQ3);
+        restaurantService.update(updated, REST_SEQ1);
+        Restaurant restaurant = restaurantService.get(REST_SEQ1);
         assertMatch(restaurant,updated);
     }
 
     @Test
     public void delete() throws Exception {
-        restaurantService.delete(RESTAURANT_SEQ3);
+        restaurantService.delete(REST_SEQ1);
         Assert.assertEquals(2,restaurantService.getAll().size());
     }
 
@@ -55,7 +55,7 @@ public class RestaurantServiceImplTest {
 
     @Test
     public void get() throws Exception {
-        Restaurant restaurant = restaurantService.get(RESTAURANT_SEQ3);
+        Restaurant restaurant = restaurantService.get(REST_SEQ1);
         assertMatch(RESTAURANT1,restaurant);
     }
 

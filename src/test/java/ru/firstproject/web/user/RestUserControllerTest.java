@@ -61,7 +61,7 @@ public class RestUserControllerTest extends AbstractControllerTest {
     @Test
     public void createVote() throws Exception {
         Menu newMenu = new Menu(MenuTestData.MENU1);
-        newMenu.setRestaurant(RESTAURANT1);
+//        newMenu.setRestaurant(RESTAURANT1);
 
 
          mockMvc.perform(post(REST_USER_URL +  "/vote")
@@ -81,7 +81,7 @@ public class RestUserControllerTest extends AbstractControllerTest {
     public void updateVoteTimesUp() throws Exception {
 //        Vote existing = new Vote(VOTE1);
         Menu existing = new Menu(MenuTestData.MENU1);
-        existing.setRestaurant(RESTAURANT2);
+//        existing.setRestaurant(RESTAURANT2);
         LocalTime localTime = LocalTime.now();
         localTime = localTime.minusHours(1);
         ValidationUtil.setLocalTime(localTime);

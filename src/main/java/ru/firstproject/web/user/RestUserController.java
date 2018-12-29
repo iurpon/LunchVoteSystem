@@ -62,7 +62,7 @@ public class RestUserController  extends AbstractUserController{
         User user = AuthorizedUser.get().getUser();
         Vote vote = new Vote();
         vote.setUser(user);
-        vote.setRestaurant(menu.getRestaurant());
+//        vote.setRestaurant(menu.getRestaurant());
         return voteService.save(vote,user.getId());
     }
 

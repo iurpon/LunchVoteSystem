@@ -32,6 +32,6 @@ public class DataJpaDishRepositoryImpl implements DishRepository {
 
     @Override
     public List<Dish> getAllByDateAndRestId(Date date, int restId) {
-        return crudDishRepository.findAllByRegisteredAndMenu_IdOrderByNameAsc(date,restId);
+        return crudDishRepository.findAllByRegisteredAndRestaurant_IdOrderByIdAsc(date,restId);
     }
 }

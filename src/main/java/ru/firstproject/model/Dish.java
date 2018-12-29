@@ -1,5 +1,7 @@
 package ru.firstproject.model;
 
+import org.hibernate.proxy.HibernateProxy;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -16,8 +18,8 @@ public class Dish  extends AbstractNamedEntity{
     private double price;
 
     @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="menu_id")
-    private Menu menu;
+    @JoinColumn(name="rest_id")
+    private Restaurant restaurant;
 
     public Dish() {
     }
@@ -27,17 +29,17 @@ public class Dish  extends AbstractNamedEntity{
         this.price = price;
     }
 
-    public Dish(Integer id, String name, double price, Menu menu) {
+    public Dish(Integer id, String name, double price, Restaurant restaurant) {
         super(id, name);
         this.price = price;
-        this.menu = menu;
+        this.restaurant = restaurant;
     }
 
     public Dish(Dish dish){
         super(dish.getId(),dish.getName());
         this.registered = dish.getRegistered();
         this.price = dish.getPrice();
-        this.menu = dish.getMenu();
+        this.restaurant = dish.getRestaurant();
     }
 
     public Date getRegistered() {
@@ -56,18 +58,21 @@ public class Dish  extends AbstractNamedEntity{
         this.price = price;
     }
 
-    public Menu getMenu() {
-        return menu;
+
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     @Override
     public String toString() {
         return "Dish{" +
-                "price=" + price +
+                "registered=" + registered +
+                ", price=" + price +
+                ", restaurant=" + (restaurant instanceof HibernateProxy?"Lazy":restaurant) +
                 ", name='" + name + '\'' +
                 ", id=" + id +
                 '}';

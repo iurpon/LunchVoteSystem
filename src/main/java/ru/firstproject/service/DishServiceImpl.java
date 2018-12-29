@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.firstproject.model.Dish;
 import ru.firstproject.repository.DishRepository;
-import ru.firstproject.util.ValidationUtil;
+import ru.firstproject.util.exception.NotFoundException;
 import ru.firstproject.util.exception.TimesUpException;
 
 import java.util.Date;
 import java.util.List;
 
+import static ru.firstproject.util.ValidationUtil.checkCorrectId;
+import static ru.firstproject.util.ValidationUtil.checkNotFound;
 
 
 @Service
@@ -37,7 +39,7 @@ public class DishServiceImpl implements DishService{
     @Override
     public void update(Dish dish, int id) {
         logger.info("update dish  wiht id = " + id );
-        ValidationUtil.checkCorrectId(dish,id);
+        checkCorrectId(dish,id);
         if(isPossibleChangeMenu()){
             dishRepository.save(dish);
         }else{
@@ -46,11 +48,18 @@ public class DishServiceImpl implements DishService{
 
     }
 
+
     @Override
     public int delete(int id) {
         logger.info("delete dish wiht id = " + id);
         if(isPossibleChangeMenu()){
-            return dishRepository.delete(id);
+            int result = dishRepository.delete(id);
+            boolean deleted = (result != 0);
+            if(deleted){
+                return result;
+            }else{
+                throw new NotFoundException("no dish wiht id = " + id);
+            }
         }else{
             throw new TimesUpException("vote already started. Cant change menu");
         }
@@ -59,7 +68,7 @@ public class DishServiceImpl implements DishService{
     @Override
     public Dish get(int id) {
         logger.info("get dish wiht id = " + id);
-        return dishRepository.get(id);
+        return  checkNotFound(dishRepository.get(id),"no dish with id = " + id);
     }
 
     @Override

@@ -1,10 +1,11 @@
 package ru.firstproject.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.annotations.BatchSize;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurants")
@@ -13,6 +14,18 @@ public class Restaurant  extends AbstractNamedEntity{
     @NotBlank
     @Size(max = 100)
     private String address;
+
+    @OneToMany(mappedBy = "restaurant",fetch = FetchType.EAGER)
+    @BatchSize(size = 200)
+    private List<Dish> dishList;
+
+    public List<Dish> getDishList() {
+        return dishList;
+    }
+
+    public void setDishList(List<Dish> dishList) {
+        this.dishList = dishList;
+    }
 
     public String getAddress() {
         return address;

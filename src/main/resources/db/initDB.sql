@@ -41,8 +41,7 @@ CREATE TABLE menus
   id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   registered       DATE DEFAULT now() NOT NULL,
   rest_id          INTEGER NOT NULL,
-  CONSTRAINT registered_rest_idx UNIQUE (rest_id, registered),
-  FOREIGN KEY (rest_id) REFERENCES restaurants (id) ON DELETE CASCADE
+  CONSTRAINT registered_rest_idx UNIQUE (rest_id, registered)
 );
 CREATE TABLE dishes
 (
@@ -50,7 +49,8 @@ CREATE TABLE dishes
   registered       DATE DEFAULT now()   NOT NULL,
   name             VARCHAR              NOT NULL,
   price            FLOAT                NOT NULL,
-  menu_id          INTEGER NOT NULL
+  rest_id          INTEGER NOT NULL,
+  FOREIGN KEY (rest_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
 
 CREATE TABLE date_label

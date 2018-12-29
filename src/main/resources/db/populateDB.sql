@@ -30,9 +30,9 @@ INSERT INTO menus (rest_id) VALUES
 INSERT INTO votes (rest_id, user_id) VALUES
   (100003,100001);
 
-INSERT INTO dishes (name, price, menu_id) VALUES
-  ('Big Burger',5.2,100006),
-  ('Kola',2.0,100006),
-  ('Steak',10,100005),
-  ('Milk Cocktail',1.5,100005),
-  ('Pancake',2,100005);
+INSERT INTO dishes (name, price, rest_id) VALUES
+  ('Big Burger',5.2,100004),
+  ('Kola',2.0,100004),
+  ('Steak',10,100002),
+  ('Milk Cocktail',1.5,100002),
+  ('Pancake',2,100002);
