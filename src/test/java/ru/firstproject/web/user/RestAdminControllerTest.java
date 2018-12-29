@@ -175,7 +175,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
     @Test
     public void updateMenu() throws Exception {
         Menu updated = new Menu(MenuTestData.MENU1);
-        updated.setDescription1("New Description1");
+//        updated.setDescription1("New Description1");
 
         mockMvc.perform(put(REST_ADMIN_URL+ "menus/" + MenuTestData.MENU_SEQ1).with(userHttpBasic(ADMIN))
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -197,7 +197,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
         }
 
         Menu updated = new Menu(MenuTestData.MENU1);
-        updated.setDescription1("New Description1");
+//        updated.setDescription1("New Description1");
 
         mockMvc.perform(put(REST_ADMIN_URL+ "menus/" + MenuTestData.MENU_SEQ1).with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)

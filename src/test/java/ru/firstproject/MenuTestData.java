@@ -10,9 +10,9 @@ public class MenuTestData {
     public static final int MENU_SEQ2 = START_SEQ + 6;
     public static final int MENU_SEQ3 = START_SEQ + 7;
 
-    public static final Menu MENU1 = new Menu(MENU_SEQ1,"Burger","Kola");
-    public static final Menu MENU2 = new Menu(MENU_SEQ2,"Losagne","AppleJuice");
-    public static final Menu MENU3 = new Menu(MENU_SEQ3,"Stake","Vine");
+    public static final Menu MENU1 = new Menu(MENU_SEQ1);
+    public static final Menu MENU2 = new Menu(MENU_SEQ2);
+    public static final Menu MENU3 = new Menu(MENU_SEQ3);
 
 
     public static <T> void assertMatch(T actual, T expected,String ... ignoringFields) {

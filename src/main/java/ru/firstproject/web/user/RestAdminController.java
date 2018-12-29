@@ -75,11 +75,6 @@ public class RestAdminController  extends AbstractUserController{
         return menuService.save(menu);
     }
 
-    @DeleteMapping(value = "/rest/admin/menus/{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteMenu(@PathVariable("id") int id){
-        menuService.delete(id);
-    }
 
     @PutMapping(value = "/rest/admin/menus/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateMenu(@RequestBody Menu menu, @PathVariable("id") int id){

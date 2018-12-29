@@ -42,7 +42,7 @@ public class MenuServiceImplTest {
 
     @Test
     public void save() throws Exception {
-        Menu menu = new Menu(null,"HotDog","Milk Cocktail");
+        Menu menu = new Menu();
         menu.setRestaurant(RESTAURANT3);
         menuService.save(menu);
         assertEquals(3,menuService.getAllByDate(new Date()).size());
@@ -51,24 +51,13 @@ public class MenuServiceImplTest {
     @Test(expected = ChangeDeniedException.class)
     public void saveDenied() throws Exception {
         dateLabelService.startVoting();
-        Menu menu = new Menu(null,"HotDog","Milk Cocktail");
+        Menu menu = new Menu();
         menu.setRestaurant(RESTAURANT1);
         menuService.save(menu);
         assertEquals(3,menuService.getAllByDate(new Date()).size());
     }
 
-    @Test
-    public void delete() throws Exception {
-        menuService.delete(MENU_SEQ1);
-        assertMatch(menuService.getAllByDate(new Date()),Arrays.asList(MENU2),"registered","restaurant");
-    }
 
-    @Test(expected = ChangeDeniedException.class)
-    public void deleteDenied() throws Exception {
-        dateLabelService.startVoting();
-        menuService.delete(MENU_SEQ1);
-        assertMatch(menuService.getAllByDate(new Date()),Arrays.asList(MENU2),"registered","restaurant");
-    }
 
     @Test
     public void get() throws Exception {
