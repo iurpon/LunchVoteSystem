@@ -3,6 +3,7 @@ package ru.firstproject.repository;
 
 import ru.firstproject.model.Restaurant;
 
+import java.util.Date;
 import java.util.List;
 
 public interface RestaurantRepository {
@@ -18,4 +19,9 @@ public interface RestaurantRepository {
     Restaurant getByName(String name);
 
     List<Restaurant> getAll();
+
+    //null if not found
+    Restaurant  getRestaurantMenu(int restId, Date date);
+
+    List<Restaurant> getMenu(Date date);
 }

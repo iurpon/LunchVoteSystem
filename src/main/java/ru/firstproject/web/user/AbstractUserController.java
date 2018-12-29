@@ -22,9 +22,6 @@ public class AbstractUserController {
     protected VoteService voteService;
 
     @Autowired
-    protected MenuService menuService;
-
-    @Autowired
     protected RestaurantService restaurantService;
 
     @Autowired

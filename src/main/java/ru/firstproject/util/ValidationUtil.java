@@ -1,7 +1,9 @@
 package ru.firstproject.util;
 
 import ru.firstproject.model.AbstractBaseEntity;
+import ru.firstproject.util.exception.ChangeDeniedException;
 import ru.firstproject.util.exception.NotFoundException;
+import ru.firstproject.util.exception.TimesUpException;
 
 import java.time.LocalTime;
 
@@ -38,6 +40,12 @@ public class ValidationUtil {
         if(entity == null) throw new IllegalArgumentException("checkCorrectId with null entiry");
         if(id != entity.getId()){
             throw new IllegalArgumentException("checkCorrectId failed of different id");
+        }
+    }
+
+    public static void checkIfPossibleUpdate(boolean check){
+        if(check){
+            throw new ChangeDeniedException("voting already started. can't do update during voting");
         }
     }
 

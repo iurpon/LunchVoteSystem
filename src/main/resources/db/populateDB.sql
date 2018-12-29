@@ -36,3 +36,8 @@ INSERT INTO dishes (name, price, rest_id) VALUES
   ('Steak',10,100002),
   ('Milk Cocktail',1.5,100002),
   ('Pancake',2,100002);
+
+INSERT INTO dishes (name, price,registered, rest_id) VALUES
+  ('Delicios1',10,'2015-05-05',100002),
+  ('Delicios2',11,'2015-05-05',100003),
+  ('Delicios1',12,'2015-05-05',100004);

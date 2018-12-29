@@ -99,12 +99,12 @@ public class RestUserController  extends AbstractUserController{
     }
 
 
-    @GetMapping(value = "/{id}/menu", produces = MediaType.APPLICATION_JSON_VALUE)
+/*    @GetMapping(value = "/{id}/menu", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> getTodayMenu(@PathVariable("id") int id) {
         List<Menu> allByDate = menuService.getAllByDate(new Date());
         if(allByDate.isEmpty()){
             throw new MenuNotReadyException("Menu not ready. Try again later");
         }
         return allByDate;
-    }
+    }*/
 }

@@ -5,7 +5,9 @@ import org.hibernate.annotations.BatchSize;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "restaurants")
@@ -15,15 +17,16 @@ public class Restaurant  extends AbstractNamedEntity{
     @Size(max = 100)
     private String address;
 
-    @OneToMany(mappedBy = "restaurant",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "restaurant",fetch = FetchType.LAZY)
     @BatchSize(size = 200)
-    private List<Dish> dishList;
+    @OrderBy("id  asc")
+    private Set<Dish> dishList;
 
-    public List<Dish> getDishList() {
+    public Set<Dish> getDishList() {
         return dishList;
     }
 
-    public void setDishList(List<Dish> dishList) {
+    public void setDishList(Set<Dish> dishList) {
         this.dishList = dishList;
     }
 

@@ -6,12 +6,13 @@ import org.springframework.stereotype.Repository;
 import ru.firstproject.model.Restaurant;
 import ru.firstproject.repository.RestaurantRepository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
 
-    private static final Sort SORT_NAME = new Sort(Sort.Direction.ASC, "name");
+    private static final Sort SORT_NAME = new Sort(Sort.Direction.ASC, "id");
 
     @Autowired
     private CrudRestaurantRepository restaurantRepository;
@@ -39,5 +40,15 @@ public class DataJpaRestaurantRepositoryImpl implements RestaurantRepository {
     @Override
     public List<Restaurant> getAll() {
         return restaurantRepository.findAll(SORT_NAME);
+    }
+
+    @Override
+    public Restaurant getRestaurantMenu(int restId, Date date) {
+        return restaurantRepository.getRestaurantMenu(restId,date);
+    }
+
+    @Override
+    public List<Restaurant> getMenu(Date date) {
+        return restaurantRepository.getMenu(date);
     }
 }

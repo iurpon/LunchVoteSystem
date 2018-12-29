@@ -162,7 +162,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
         MenuTestData.assertMatch(returned,expected,"restaurant");
     }
 
-    @Test
+/*    @Test
     public void deleteMenu() throws Exception {
         mockMvc.perform(delete(REST_ADMIN_URL + "menus/" + MenuTestData.MENU_SEQ2).with(userHttpBasic(ADMIN)))
                 .andDo(print())
@@ -182,7 +182,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
                                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isOk());
         MenuTestData.assertMatch(menuService.get(MenuTestData.MENU_SEQ1),updated,"registered","restaurant");
-    }
+    }*/
 
     @Test
     public void startVoting() throws Exception {

@@ -42,9 +42,6 @@ public abstract class AbstractControllerTest {
     protected UserService userService;
 
     @Autowired
-    protected MenuService menuService;
-
-    @Autowired
     protected VoteService voteService;
 
     @Autowired
