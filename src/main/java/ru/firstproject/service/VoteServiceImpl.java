@@ -32,7 +32,7 @@ public class VoteServiceImpl implements VoteService {
         if(TIME_TO_CHANGE_MIND == null){
             setLocalTime(LocalTime.of(11,0));
         }
-        boolean isBefore = LocalTime.now().isBefore(getLocalTime());
+        boolean isBefore = LocalTime.now().isBefore(TIME_TO_CHANGE_MIND);
         logger.info("Save method voteService. is time to revote? = " + isBefore);
         Vote anyVote = voteRepository.get(new Date(),userId);
         if(anyVote == null){

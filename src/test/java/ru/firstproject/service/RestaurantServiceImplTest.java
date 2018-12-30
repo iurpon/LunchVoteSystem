@@ -2,18 +2,10 @@ package ru.firstproject.service;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringRunner;
 import static ru.firstproject.RestaurantTestData.*;
 
+import ru.firstproject.AbstractServiceTest;
 import ru.firstproject.MenuTestData;
-import ru.firstproject.model.Dish;
 import ru.firstproject.model.Restaurant;
 import ru.firstproject.util.exception.ChangeDeniedException;
 import ru.firstproject.util.exception.NotFoundException;
@@ -24,23 +16,11 @@ import static ru.firstproject.DishTestData.*;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
-@ContextConfiguration({"classpath:spring/spring-app.xml","classpath:spring/spring-db.xml"})
-@RunWith(SpringRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class RestaurantServiceImplTest {
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private RestaurantService restaurantService;
 
-    @Autowired
-    private DateLabelService dateLabelService;
-
-    @Autowired
-    private DishService dishService;
+public class RestaurantServiceImplTest extends AbstractServiceTest{
 
     @Test
     public void create() throws Exception {

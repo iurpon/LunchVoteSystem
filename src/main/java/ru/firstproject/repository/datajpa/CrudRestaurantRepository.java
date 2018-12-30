@@ -45,7 +45,8 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
     @Query("select DISTINCT r from Restaurant r LEFT join fetch r.dishList d where d.registered=:registered order by r.id asc")
     List<Restaurant> getMenu(@Param("registered") Date registered);
 
-    @EntityGraph(attributePaths = {"dishList"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT  r FROM Restaurant r, Dish d WHERE r.id=?1 and d.registered=?2")
-    Restaurant getRestaurantMenu(int id,Date date);
+/*    @EntityGraph(attributePaths = {"dishList"}, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT  r FROM Restaurant r, Dish d WHERE r.id=?1 and d.registered=?2")*/
+    @Query("select DISTINCT r from Restaurant r LEFT join fetch r.dishList d where r.id=:id and d.registered=:registered order by r.id asc")
+    Restaurant getRestaurantMenu(@Param("id") int id,@Param("registered") Date date);
 }

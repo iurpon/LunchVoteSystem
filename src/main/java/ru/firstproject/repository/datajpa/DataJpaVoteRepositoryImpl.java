@@ -18,7 +18,8 @@ public class DataJpaVoteRepositoryImpl  implements VoteRepository{
 
     @Override
     public Vote get(Date date, int userId) {
-        return crudVoteRepository.find(date,userId).orElse(null);
+//        return crudVoteRepository.find(date,userId).orElse(null);
+        return crudVoteRepository.getVote(date,userId);
     }
 
     @Override

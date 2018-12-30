@@ -1,13 +1,8 @@
 package ru.firstproject.service;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringRunner;
+import ru.firstproject.AbstractServiceTest;
 import ru.firstproject.UserTestData;
 import ru.firstproject.model.Role;
 import ru.firstproject.model.User;
@@ -16,14 +11,8 @@ import ru.firstproject.util.exception.NotFoundException;
 import java.util.List;
 
 
-@ContextConfiguration({"classpath:spring/spring-app.xml","classpath:spring/spring-db.xml"})
-@RunWith(SpringRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 
-public class UserServiceImplTest {
-
-    @Autowired
-    private UserService service;
+public class UserServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void save() throws Exception {
@@ -36,7 +25,7 @@ public class UserServiceImplTest {
     @Test(expected = DataAccessException.class)
     public void saveExitingEmail() throws Exception {
         User newUser = new User(null,"newUser","newUser@mail.ru","password", Role.ROLE_USER);
-        newUser = service.create(newUser);
+        service.create(newUser);
         User someUser = new User(null,"someUser","newUser@mail.ru","password", Role.ROLE_USER);
         service.create(someUser);
 
@@ -71,13 +60,13 @@ public class UserServiceImplTest {
     @Test(expected = NotFoundException.class)
     public void getByWrongEmail() throws Exception {
         String email = "users@yandex.ru";
-        User user = service.getByEmail(email);
+        service.getByEmail(email);
     }
 
     @Test
     public void getAll() throws Exception {
         List<User> all = service.getAll();
-        all.stream().forEach(System.out::println);
+        all.stream().forEach(user -> logger.info(user.toString()));
     }
 
     @Test

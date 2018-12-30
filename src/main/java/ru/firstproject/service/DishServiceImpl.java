@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.firstproject.model.Dish;
 import ru.firstproject.repository.DishRepository;
+import ru.firstproject.util.ValidationUtil;
 import ru.firstproject.util.exception.NotFoundException;
 import ru.firstproject.util.exception.TimesUpException;
 
 import java.util.Date;
 import java.util.List;
 
-import static ru.firstproject.util.ValidationUtil.checkCorrectId;
-import static ru.firstproject.util.ValidationUtil.checkNotFound;
+import static ru.firstproject.util.ValidationUtil.*;
 
 
 @Service
@@ -28,11 +28,9 @@ public class DishServiceImpl implements DishService{
     @Override
     public Dish save(Dish dish) {
         logger.info("save dish");
-        if(isPossibleChangeMenu()){
-            return dishRepository.save(dish);
-        }else{
-            throw new TimesUpException("vote already started. Cant change menu");
-        }
+        checkIfPossibleUpdate(dateLabelService.isPresentToday());
+        return dishRepository.save(dish);
+
 
     }
 
@@ -40,29 +38,18 @@ public class DishServiceImpl implements DishService{
     public void update(Dish dish, int id) {
         logger.info("update dish  wiht id = " + id );
         checkCorrectId(dish,id);
-        if(isPossibleChangeMenu()){
-            dishRepository.save(dish);
-        }else{
-            throw new TimesUpException("vote already started. Cant change menu");
-        }
-
+        checkIfPossibleUpdate(dateLabelService.isPresentToday());
+        dishRepository.save(dish);
     }
 
 
     @Override
     public int delete(int id) {
         logger.info("delete dish wiht id = " + id);
-        if(isPossibleChangeMenu()){
+        checkIfPossibleUpdate(dateLabelService.isPresentToday());
             int result = dishRepository.delete(id);
-            boolean deleted = (result != 0);
-            if(deleted){
-                return result;
-            }else{
-                throw new NotFoundException("no dish wiht id = " + id);
-            }
-        }else{
-            throw new TimesUpException("vote already started. Cant change menu");
-        }
+            checkNotFoundWithId(result != 0,id);
+            return result;
     }
 
     @Override
@@ -75,10 +62,6 @@ public class DishServiceImpl implements DishService{
     public List<Dish> getAllByDateAndRestId(Date date, int restId) {
         logger.info("getAllbyDate and restId");
         return dishRepository.getAllByDateAndRestId(date,restId);
-    }
-
-    public boolean isPossibleChangeMenu(){
-        return !dateLabelService.isPresentToday();
     }
 
 

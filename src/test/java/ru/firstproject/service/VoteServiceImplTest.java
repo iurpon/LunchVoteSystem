@@ -1,30 +1,24 @@
 package ru.firstproject.service;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringRunner;
+import ru.firstproject.AbstractServiceTest;
 import ru.firstproject.model.Vote;
 import ru.firstproject.util.exception.TimesUpException;
 
+import java.time.LocalTime;
 import java.util.Date;
 
-import static org.junit.Assert.*;
+
 import static ru.firstproject.UserTestData.*;
 import static ru.firstproject.MenuTestData.*;
 import static ru.firstproject.VoteTestData.*;
 import static ru.firstproject.RestaurantTestData.*;
+import static ru.firstproject.util.ValidationUtil.TIME_TO_CHANGE_MIND;
 
-@ContextConfiguration({"classpath:spring/spring-app.xml","classpath:spring/spring-db.xml"})
-@RunWith(SpringRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class VoteServiceImplTest {
 
-    @Autowired
-    private VoteService voteService;
+public class VoteServiceImplTest  extends AbstractServiceTest{
+
+
 
     @Test
     public void get() throws Exception {
@@ -42,6 +36,7 @@ public class VoteServiceImplTest {
 
     @Test(expected = TimesUpException.class)
     public void saveDenied() throws Exception {
+        TIME_TO_CHANGE_MIND = LocalTime.now().minusHours(1);
         voteService.save(VOTE1,ADMIN_ID);
     }
 

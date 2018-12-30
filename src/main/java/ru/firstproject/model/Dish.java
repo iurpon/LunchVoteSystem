@@ -78,7 +78,7 @@ public class Dish  extends AbstractNamedEntity{
         return "Dish{" +
                 "registered=" + registered +
                 ", price=" + price +
-                ", restaurant=" + (restaurant instanceof HibernateProxy?"Lazy":restaurant) +
+                ", restaurant=" + (restaurant instanceof HibernateProxy?"Lazy":restaurant.getId()+":"+restaurant.getName()) +
                 ", name='" + name + '\'' +
                 ", id=" + id +
                 '}';
