@@ -10,6 +10,8 @@ import ru.firstproject.util.exception.NotFoundException;
 
 import java.util.List;
 
+import static ru.firstproject.UserTestData.*;
+
 
 
 public class UserServiceImplTest extends AbstractServiceTest {
@@ -19,8 +21,8 @@ public class UserServiceImplTest extends AbstractServiceTest {
         User newUser = new User(null,"NewUser","newUser@mail.ru","password", Role.ROLE_USER);
         newUser = service.create(newUser);
         List<User> users = service.getAll();
-        UserTestData.assertMatch(users,UserTestData.ADMIN,newUser,UserTestData.USER);
-        users.stream().forEach(System.out::println);
+        UserTestData.assertMatch(users, ADMIN,newUser, USER);
+        users.forEach(user -> logger.info(user.toString()));
     }
     @Test(expected = DataAccessException.class)
     public void saveExitingEmail() throws Exception {
@@ -33,28 +35,28 @@ public class UserServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void delete() throws Exception {
-        service.delete(UserTestData.USER.getId());
+        service.delete(USER_ID);
         List<User> users = service.getAll();
-        UserTestData.assertMatch(users,UserTestData.ADMIN);
-        users.stream().forEach(System.out::println);
+        UserTestData.assertMatch(users, ADMIN);
+        users.forEach(user -> logger.info(user.toString()));
     }
     @Test(expected = NotFoundException.class)
     public void notFoundDelete() throws Exception {
-        service.delete(0);
+        service.delete(USER_ID -100);
         List<User> users = service.getAll();
-        users.stream().forEach(System.out::println);
+        users.forEach(user -> logger.info(user.toString()));
     }
 
     @Test
     public void get() throws Exception {
-        User user =  service.get(UserTestData.USER_ID);
-        UserTestData.assertMatch(UserTestData.USER,user);
+        User user =  service.get(USER_ID);
+        UserTestData.assertMatch(USER,user);
     }
 
     @Test
     public void getByEmail() throws Exception {
         User user = service.getByEmail("user@yandex.ru");
-        UserTestData.assertMatch(UserTestData.USER,user);
+        UserTestData.assertMatch(USER,user);
     }
 
     @Test(expected = NotFoundException.class)
@@ -71,10 +73,10 @@ public class UserServiceImplTest extends AbstractServiceTest {
 
     @Test
     public void update(){
-        User user = new User(UserTestData.USER);
+        User user = new User(USER);
         user.setName("newUser");
-        service.update(user,UserTestData.USER_ID);
-        User updatedUser = service.get(UserTestData.USER_ID);
+        service.update(user, USER_ID);
+        User updatedUser = service.get(USER_ID);
         UserTestData.assertMatch(updatedUser,user);
     }
 
