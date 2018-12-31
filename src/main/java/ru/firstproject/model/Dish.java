@@ -1,5 +1,6 @@
 package ru.firstproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Dish  extends AbstractNamedEntity{
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="rest_id")
+    @JsonIgnore
     private Restaurant restaurant;
 
     public Dish() {
@@ -76,11 +78,10 @@ public class Dish  extends AbstractNamedEntity{
     @Override
     public String toString() {
         return "Dish{" +
-                "registered=" + registered +
-                ", price=" + price +
-                ", restaurant=" + (restaurant instanceof HibernateProxy?"Lazy":restaurant.getId()+":"+restaurant.getName()) +
+                " id=" + id +
                 ", name='" + name + '\'' +
-                ", id=" + id +
+                ", price=" + price +
+                ", restaurant=" + restaurant +
                 '}';
     }
 }

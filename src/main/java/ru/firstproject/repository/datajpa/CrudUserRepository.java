@@ -1,5 +1,7 @@
 package ru.firstproject.repository.datajpa;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,6 +15,9 @@ import java.util.Optional;
 
 @Transactional(readOnly = true)
 public interface CrudUserRepository extends JpaRepository<User, Integer> {
+    @Override
+    Page<User> findAll(Pageable pageable);
+
     @Transactional
     @Modifying
 //    @Query(name = User.DELETE)

@@ -14,6 +14,7 @@ import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequ
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -41,15 +42,19 @@ public class UserTestData {
     }
 
     public static <T> ResultMatcher contentJson(T... expected) {
-        return content().json(writeIgnoreProps(Arrays.asList(expected), "registered","restaurant"));
+        return content().json(writeIgnoreProps(Arrays.asList(expected), "registered"));
     }
 
     public static <T> ResultMatcher contentJson(T expected) {
-        return content().json(writeIgnoreProps(expected, "registered","restaurant"));
+        return content().json(writeIgnoreProps(expected, "registered","dishList"));
     }
 
     public static <T> T readFromJson(ResultActions action, Class<T> clazz) throws UnsupportedEncodingException {
         return JsonUtil.readValue(getContent(action), clazz);
+    }
+
+    public static <T> List<T> readMultiFromJson(ResultActions action, Class<T> clazz) throws UnsupportedEncodingException {
+        return JsonUtil.readValues(getContent(action), clazz);
     }
 
     public static String getContent(ResultActions action) throws UnsupportedEncodingException {

@@ -27,6 +27,9 @@ public class AbstractUserController {
     @Autowired
     protected DateLabelService dateLabelService;
 
+    @Autowired
+    protected DishService dishService;
+
     public List<User> getAll() {
         log.info("getAll");
         return userService.getAll();

@@ -6,5 +6,6 @@ public enum ErrorType {
     DATA_ERROR,
     CHANGE_DENY,
     TIMES_UP,
-    MENU_NOT_READY
+    MENU_NOT_READY,
+    VOTE_ALREADY_STARTED
 }

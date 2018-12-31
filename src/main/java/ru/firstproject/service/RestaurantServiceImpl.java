@@ -9,6 +9,7 @@ import ru.firstproject.repository.RestaurantRepository;
 import ru.firstproject.util.exception.NotFoundException;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import  static ru.firstproject.util.ValidationUtil.*;
 
@@ -63,7 +64,18 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Restaurant getRestaurantMenu(int restId, Date date) {
         logger.info("getRestaurantMenu(id,date)");
-        return checkNotFound(restaurantRepository.getRestaurantMenu(restId,date),"not found restaurant with id = " + restId);
+        Restaurant restaurant = restaurantRepository.getRestaurantMenu(restId,date);
+        if(restaurant != null){
+            logger.info("Geting restaurant with addons");
+            return restaurant;
+        }else{
+            logger.info("No menu yet. Geting simple restaurant");
+            restaurant = get(restId);
+            checkNotFound(restaurant,"no restaurant with id =" + restId);
+            restaurant.setDishList(new HashSet<>());
+            return restaurant;
+        }
+
     }
 
     @Override

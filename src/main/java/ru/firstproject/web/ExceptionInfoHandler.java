@@ -27,6 +27,13 @@ public class ExceptionInfoHandler {
     public ErrorInfo handleChangeDenyError(HttpServletRequest req, ChangeDeniedException e) {
         return logAndGetErrorInfo(req, e, false, ErrorType.CHANGE_DENY);
     }
+
+    @ResponseStatus(value = HttpStatus.CONFLICT)
+    @ExceptionHandler(VoteAlreadyStarted.class)
+    public ErrorInfo handleChangeDenyError(HttpServletRequest req, VoteAlreadyStarted e) {
+        return logAndGetErrorInfo(req, e, false, ErrorType.VOTE_ALREADY_STARTED);
+    }
+
     @ResponseStatus(value = HttpStatus.CONFLICT)
     @ExceptionHandler(TimesUpException.class)
     public ErrorInfo handleTimeUpError(HttpServletRequest req, TimesUpException e) {
