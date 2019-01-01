@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.firstproject.AuthorizedUser;
-import ru.firstproject.model.Menu;
 import ru.firstproject.model.Restaurant;
 import ru.firstproject.model.User;
 import org.springframework.http.MediaType;
 import ru.firstproject.model.Vote;
-import ru.firstproject.util.exception.MenuNotReadyException;
 
 import java.net.URI;
 import java.util.Date;

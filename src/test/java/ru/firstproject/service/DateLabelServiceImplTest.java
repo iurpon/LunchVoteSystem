@@ -2,10 +2,8 @@ package ru.firstproject.service;
 
 
 import org.junit.Test;
-import org.springframework.dao.DataAccessException;
 import ru.firstproject.AbstractServiceTest;
 import ru.firstproject.util.exception.VoteAlreadyStarted;
-
 import static org.junit.Assert.*;
 
 

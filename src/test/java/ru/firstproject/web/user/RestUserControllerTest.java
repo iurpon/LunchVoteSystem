@@ -5,9 +5,7 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import ru.firstproject.AbstractControllerTest;
-import ru.firstproject.MenuTestData;
 import ru.firstproject.TestUtil;
-import ru.firstproject.model.Menu;
 import ru.firstproject.model.Role;
 import ru.firstproject.model.User;
 import ru.firstproject.model.Vote;
@@ -15,7 +13,6 @@ import ru.firstproject.util.ValidationUtil;
 import ru.firstproject.util.json.JsonUtil;
 
 import java.time.LocalTime;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
