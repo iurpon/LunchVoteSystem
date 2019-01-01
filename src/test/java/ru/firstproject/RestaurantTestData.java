@@ -2,7 +2,7 @@ package ru.firstproject;
 
 import ru.firstproject.model.Restaurant;
 
-import java.util.Arrays;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.firstproject.model.AbstractBaseEntity.START_SEQ;

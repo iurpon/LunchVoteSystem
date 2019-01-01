@@ -2,7 +2,6 @@ package ru.firstproject.repository.datajpa;
 
 
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -40,13 +39,11 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
 
     Restaurant findByName(String name);
 
-/*    @EntityGraph(attributePaths = {"dishList"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT r FROM Restaurant r,Dish d WHERE d.registered=?1  order by r.id asc")*/
+
     @Query("select DISTINCT r from Restaurant r LEFT join fetch r.dishList d where d.registered=:registered order by r.id asc")
     List<Restaurant> getMenu(@Param("registered") Date registered);
 
-/*    @EntityGraph(attributePaths = {"dishList"}, type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT  r FROM Restaurant r, Dish d WHERE r.id=?1 and d.registered=?2")*/
+
     @Query("select DISTINCT r from Restaurant r LEFT join fetch r.dishList d where r.id=:id and d.registered=:registered order by r.id asc")
     Restaurant getRestaurantMenu(@Param("id") int id,@Param("registered") Date date);
 }
