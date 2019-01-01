@@ -62,7 +62,7 @@ public class DishServiceImplTest  extends AbstractServiceTest{
     public void delete() throws Exception {
         dishService.delete(DISH_SEQ1);
         List<Dish> dishList = dishService.getAllByDateAndRestId(new Date(), REST_SEQ3);
-        dishList.stream().forEach(System.out::println);
+        dishList.forEach(dish -> logger.info("DISH : " + dish.toString()));
         assertMatch(dishList, Collections.singleton(DISH2),"registered","restaurant");
     }
 
@@ -90,7 +90,7 @@ public class DishServiceImplTest  extends AbstractServiceTest{
     @Test
     public void getAllByDateAndRestId() throws Exception {
         List<Dish> dishList = dishService.getAllByDateAndRestId(new Date(), REST_SEQ1);
-        dishList.stream().forEach(System.out::println);
+        dishList.forEach(dish -> logger.info("DISH : " + dish.toString()));
         Assert.assertEquals(dishList.size(),3);
         assertMatch(dishList, Arrays.asList(DISH3,DISH4,DISH5),"restaurant","registered");
     }

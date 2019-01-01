@@ -4,6 +4,8 @@ package ru.firstproject.service;
 import org.junit.Test;
 import org.springframework.dao.DataAccessException;
 import ru.firstproject.AbstractServiceTest;
+import ru.firstproject.util.exception.VoteAlreadyStarted;
+
 import static org.junit.Assert.*;
 
 
@@ -21,10 +23,10 @@ public class DateLabelServiceImplTest extends AbstractServiceTest {
         assertEquals(false,dateLabelService.isPresentToday());
     }
 
-    @Test(expected = DataAccessException.class)
+    @Test(expected = VoteAlreadyStarted.class)
     public void startVotingException(){
         dateLabelService.startVoting();
-        assertEquals(false,dateLabelService.startVoting());
+        dateLabelService.startVoting();
     }
 
     @Test
