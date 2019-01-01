@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.firstproject.AuthorizedUser;
 import ru.firstproject.model.Menu;
+import ru.firstproject.model.Restaurant;
 import ru.firstproject.model.User;
 import org.springframework.http.MediaType;
 import ru.firstproject.model.Vote;
@@ -36,6 +37,7 @@ public class RestUserController  extends AbstractUserController{
         userService.update(user,id);
     }
 
+
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int id){
@@ -45,7 +47,6 @@ public class RestUserController  extends AbstractUserController{
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> createWithLocation(@RequestBody User user){
         User created = userService.create(user);
-
         URI newUriOfResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                                 .path(REST_USER_URL + "/id")
                                 .buildAndExpand(created.getId()).toUri();
@@ -57,13 +58,12 @@ public class RestUserController  extends AbstractUserController{
 
     @PostMapping(value = "/vote",consumes = MediaType.APPLICATION_JSON_VALUE
                                         ,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Vote createVote(@RequestBody Menu menu){
-//        int id = AuthorizedUser.id();
+    public Vote createVote(@RequestBody Restaurant restaurant){
+        Vote created = new Vote();
+        created.setRestaurant(restaurant);
         User user = AuthorizedUser.get().getUser();
-        Vote vote = new Vote();
-        vote.setUser(user);
-//        vote.setRestaurant(menu.getRestaurant());
-        return voteService.save(vote,user.getId());
+        created.setUser(user);
+        return voteService.save(created,user.getId());
     }
 
 

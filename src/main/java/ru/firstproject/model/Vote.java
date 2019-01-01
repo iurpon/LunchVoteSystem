@@ -1,12 +1,15 @@
 package ru.firstproject.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
 @Table(name = "votes")
 public class Vote extends AbstractBaseEntity {
 
+    @Column(name = "registered")
+    @NotNull
     private Date registered = new Date();
 
     @ManyToOne(fetch = FetchType.EAGER)
