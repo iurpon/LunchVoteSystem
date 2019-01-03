@@ -32,12 +32,6 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
       {"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2","dishList": null}
 ]</code>
 </li>
-<li><strong>Error Response:</strong> <strong>Code:</strong> 404 NOT FOUND <br>
-<strong>Content:</strong> <code>{ error : "User doesn't exist" }</code>
-</li>
-<li><strong>Error Response:</strong> <strong>Code:</strong> 401 UNAUTHORIZED <br>
-<strong>Content:</strong> <code>{ error : "You are unauthorized to make this request." }</code>
-</li>
 </ul>
 
 <h3><strong>Show Restaurant</strong></h3>
@@ -62,6 +56,51 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <strong>Content:</strong> <code>{ error : "You are unauthorized to make this request." }</code>
 </li>
 </ul>
+
+
+<h3><strong>Create Restaurant</strong></h3>
+<p>Returns json data about created restaurant restaurant.</p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> POST /rest/admin/restaurants</code></p>
+</li>
+<li>
+<p><strong>Body: </strong> <code> {"id": null,"name": "New Restaurant","address": "LA, "Ocean street 1"}</code></p>
+</li>      
+<li><strong>Success Response:</strong> <strong>Code:</strong> 201 <br>
+<strong>Content:</strong> <code>[
+      {"id": 100016,"name": "New Restaurant","address": "LA, Ocean street 1"}
+]</code>
+</li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/admin/restaurants",
+   "type": "VALIDATION_ERROR",
+   "detail": "org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 in method: public org.springframework.http.ResponseEntity<ru.firstproject.model.Restaurant> ru.firstproject.web.user.RestAdminController.createRestaurant(ru.firstproject.model.Restaurant), with 2 error(s): [Field error in object 'restaurant' on field 'name': rejected value []; codes [NotBlank.restaurant.name,NotBlank.name,NotBlank.java.lang.String,NotBlank]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [restaurant.name,name]; arguments []; default message [name]]; default message [не может быть пусто]] [Field error in object 'restaurant' on field 'name': rejected value []; codes [Size.restaurant.name,Size.name,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [restaurant.name,name]; arguments []; default message [name],100,2]; default message [размер должен быть между 2 и 100]] "
+}</code>
+</li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 401 UNAUTHORIZED <br>
+<strong>Content:</strong> <code>{ error : "You are unauthorized to make this request." }</code>
+</li>
+</ul>
+
+<h3><strong>Show Restaurant Menu</strong></h3>
+<p>Returns json data about a single restaurant.</p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> GET /rest/admin/restaurants/{id}/menu</code></p>
+</li>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
+<strong>Content:</strong> <code>[
+      {"id": 100004, "name": "BURGER KING","address": "NY, Washington street 2",
+       "dishList":[{"id": 100008,"name": "Big Burger","registered": 1546462800000,"price": 5.2},
+                   {"id": 100009,"name": "Kola","registered": 1546462800000,"price": 2}]}]</code>
+</li>
+</ul>
+
+
+
+
 
 <h3><strong>Show User</strong></h3>
 <p>Returns json data about a single user.</p>
