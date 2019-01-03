@@ -26,11 +26,9 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p><strong>Usage: </strong> <code> GET /rest/admin/restaurants</code></p>
 </li>
 <li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
-<strong>Content:</strong> <code>[
-     <div> {"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58","dishList": null},</div>
+<strong>Content:</strong> <code>[<div> {"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58","dishList": null},</div>
      <div> {"id": 100003,"name": "MADDISON SQUARE AVENIU","address": "NY, 2-nd street 39","dishList": null},</div>
-     <div>{"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2","dishList": null}</div>
-]</code>
+     <div>{"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2","dishList": null}</div>]</code>
 </li>
 </ul>
 
@@ -41,9 +39,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p><strong>Usage: </strong> <code> GET /rest/admin/restaurants/{id}</code></p>
 </li>
 <li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
-<strong>Content:</strong> <code>[
-      {"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58","dishList": null},
-]</code>
+<strong>Content:</strong> <code>[<div>{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58","dishList": null},</div>]</code>
 </li>
 <li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
 <strong>Content:</strong> <code>{
@@ -62,12 +58,10 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p><strong>Usage: </strong> <code> POST /rest/admin/restaurants</code></p>
 </li>
 <li>
-<p><strong>Consume Media Type Json: </strong> <code> {"name": "New Restaurant","address": "LA, "Ocean street 1"}</code></p>
+<p><strong>Consume Media Type Json: </strong> <code><div> {"name": "New Restaurant","address": "LA, "Ocean street 1"}</div></code></p>
 </li>      
 <li><strong>Success Response:</strong> <strong>Code:</strong> 201 <br>
-<strong>Content:</strong> <code>[
-      {"id": 100016,"name": "New Restaurant","address": "LA, Ocean street 1"}
-]</code>
+<strong>Content:</strong> <code>[<div>{"id": 100016,"name": "New Restaurant","address": "LA, Ocean street 1"}</div>]</code>
 </li>
 <li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
 <strong>Content:</strong> <code>{
@@ -85,10 +79,9 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p><strong>Usage: </strong> <code> GET /rest/admin/restaurants/{id}/menu</code></p>
 </li>
 <li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
-<strong>Content:</strong> <code>[
-      {"id": 100004, "name": "BURGER KING","address": "NY, Washington street 2",
-       "dishList":[{"id": 100008,"name": "Big Burger","registered": 1546462800000,"price": 5.2},
-                   {"id": 100009,"name": "Kola","registered": 1546462800000,"price": 2}]}]</code>
+<strong>Content:</strong> <code><div>[{"id": 100004, "name": "BURGER KING","address": "NY, Washington street 2",</div>
+      <div> "dishList":[{"id": 100008,"name": "Big Burger","registered": 1546462800000,"price": 5.2},</div>
+                 <div>  {"id": 100009,"name": "Kola","registered": 1546462800000,"price": 2}]}]</div></code>
 </li>
 </ul>
 
@@ -99,14 +92,14 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p><strong>Usage: </strong> <code> GET /rest/admin/restaurants/menu</code></p>
 </li>
 <li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
-<strong>Content:</strong> <code>[
-      {"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58",
-       "dishList":[{"id": 100010,"name": "Steak","registered": 1546549200000,"price": 10},
-                  {"id": 100011,"name": "Milk Cocktail","registered": 1546549200000,"price": 1.5},
-                  {"id": 100012,"name": "Pancake","registered": 1546549200000,"price": 2}]},
-      {"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2",
-       "dishList":[{"id": 100008,"name": "Big Burger","registered": 1546549200000,"price": 5.2},
-                  {"id": 100009,"name": "Kola","registered": 1546549200000,"price": 2}]}]</code>
+<strong>Content:</strong> <code><div>[
+      {"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58",</div>
+      <div> "dishList":[{"id": 100010,"name": "Steak","registered": 1546549200000,"price": 10},</div>
+             <div>     {"id": 100011,"name": "Milk Cocktail","registered": 1546549200000,"price": 1.5},</div>
+              <div>    {"id": 100012,"name": "Pancake","registered": 1546549200000,"price": 2}]},</div>
+     <div> {"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2",</div>
+     <div>  "dishList":[{"id": 100008,"name": "Big Burger","registered": 1546549200000,"price": 5.2},</div>
+          <div>        {"id": 100009,"name": "Kola","registered": 1546549200000,"price": 2}]}]</div></code>
 </li>
 </ul>
 
