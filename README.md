@@ -104,6 +104,56 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 </li>
 </ul>
 
+<h3><strong>Create Dish</strong></h3>
+<p>Returns json data about today restaurant menu include created dish</p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> POST /rest/admin/restaurants/{id}/menu</code></p>
+</li>
+<li>
+<p><strong>Consume Media Type Json: </strong> <code><div> {"name": "Very Big Burger","price": 8.8,</div>
+     <div>"restaurant":{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58"}}</div></code></p>
+</li>      
+<li><strong>Success Response:</strong> <strong>Code:</strong> 201 <br>
+<strong>Content:</strong> <code><div>{"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2",</div>
+   <div>"dishList":[{"id": 100008,"name": "Big Burger","registered": 1546549200000,"price": 5.2},</div>
+            <div>{"id": 100009,"name": "Kola","registered": 1546549200000,"price": 2},</div>
+            <div>{"id": 100016,"name": "Very Big Burger","registered": 1546551720198,"price": 8.8}]}</div></code>
+</li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/admin/restaurants",
+   "type": "VALIDATION_ERROR",
+   "detail": "org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 ,default message [размер должен быть между 2 и 100]] "
+}</code>
+</li>
+</ul>
+
+<h3><strong>Update Dish</strong></h3>
+<p>Returns json data about today restaurant menu include updated dish</p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> POST /rest/admin/restaurants/{id}/menu/{dishId}</code></p>
+</li>
+<li>
+<p><strong>Consume Media Type Json: </strong> <code><div> {"name": "Very Small Burger","price": 2.8,</div>
+     <div>"restaurant":{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58"}}</div></code></p>
+</li>      
+<li><strong>Success Response:</strong> <strong>Code:</strong> 201 <br>
+<strong>Content:</strong> <code><div>{"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2",</div>
+   <div>"dishList":[{"id": 100008,"name": "Big Burger","registered": 1546549200000,"price": 5.2},</div>
+            <div>{"id": 100009,"name": "Kola","registered": 1546549200000,"price": 2},</div>
+            <div>{"id": 100016,"name": "Very Small Burger","registered": 1546551720198,"price": 2.8}]}</div></code>
+</li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/admin/restaurants",
+   "type": "VALIDATION_ERROR",
+   "detail": "org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 ,default message [размер должен быть между 2 и 100]] "
+}</code>
+</li>
+</ul>
+
 
 
 <h3><strong>Show User</strong></h3>
