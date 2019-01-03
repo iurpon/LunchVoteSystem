@@ -26,9 +26,9 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p><strong>Usage: </strong> <code> GET /rest/admin/restaurants</code></p>
 </li>
 <li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
-<strong>Content:</strong> <code><div> [{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58","dishList": null},</div>
+<strong>Content:</strong> <div><code> [{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58","dishList": null},</div>
      <div> {"id": 100003,"name": "MADDISON SQUARE AVENIU","address": "NY, 2-nd street 39","dishList": null},</div>
-     <div>{"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2","dishList": null}]</div></code>
+     <div>{"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2","dishList": null}]</code></div>
 </li>
 </ul>
 
