@@ -125,6 +125,13 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
    "type": "VALIDATION_ERROR",
    "detail": "org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 ,default message [размер должен быть между 2 и 100]] "}</code>
 </li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 409 CONFLICT <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/admin/restaurants/100004/menu",
+   "type": "CHANGE_DENY",
+   "detail": "ru.firstproject.util.exception.ChangeDeniedException: voting already started. can't do update during voting"
+}</code>
+</li>
 </ul>
 
 <h3><strong>Update Dish</strong></h3>
@@ -148,6 +155,13 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
    "type": "VALIDATION_ERROR",
    "detail": "org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 ,default message [размер должен быть между 2 и 100]] "}</code>
 </li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 409 CONFLICT <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/admin/restaurants/100004/menu/100008",
+   "type": "CHANGE_DENY",
+   "detail": "ru.firstproject.util.exception.ChangeDeniedException: voting already started. can't do update during voting"
+}</code>
+</li>
 </ul>
 
 <h3><strong>Delete Dish</strong></h3>
@@ -166,7 +180,35 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
    "detail": "ru.firstproject.util.exception.NotFoundException: Not found object with id = 100016"
 }</code>
 </li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 409 CONFLICT <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/admin/restaurants/100004/menu/100016",
+   "type": "CHANGE_DENY",
+   "detail": "ru.firstproject.util.exception.ChangeDeniedException: voting already started. can't do update during voting"
+}</code>
+</li>     
 </ul>
+
+<h3><strong>Start Voting</strong></h3>
+<p> Admin did all menu updates and users can vote. After that all menu change denied<p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> POST /rest/admin/startVote</code></p>
+</li>
+<li>   
+<li><strong>Success Response:</strong> <strong>Code:</strong> 204 <br>
+<strong>Content:</strong> <div>No content</div>
+</li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/admin/startVote",
+   "type": "VOTE_ALREADY_STARTED",
+   "detail": "ru.firstproject.util.exception.VoteAlreadyStarted: Vote already started"
+}</code>
+</li>
+</ul>
+
+
 
 <h3><strong>Show Users</strong></h3>
 <p>Returns json data about all user </p>
@@ -186,14 +228,32 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
       "password": "password",
       "registered": 1546563388467,
       "roles": ["ROLE_USER"]
+           }]</div>
+</li>
+</ul>
+
+<h3><strong>Show User</strong></h3>
+<p>Returns json data about a single User</p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> GET /rest/admin/users/{id}</code></p>
+</li>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
+<strong>Content:</strong> <div>{
+      "id": 100000,
+      "name": "User",
+      "email": "user@yandex.ru",
+      "password": "password",
+      "registered": 1546563388467,
+      "roles": ["ROLE_USER"]
            }</div>
-]
 </li>
-<li><strong>Error Response:</strong> <strong>Code:</strong> 404 NOT FOUND <br>
-<strong>Content:</strong> <code>{ error : "User doesn't exist" }</code>
-</li>
-<li><strong>Error Response:</strong> <strong>Code:</strong> 401 UNAUTHORIZED <br>
-<strong>Content:</strong> <code>{ error : "You are unauthorized to make this request." }</code>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/admin/users/1",
+   "type": "DATA_NOT_FOUND",
+   "detail": "ru.firstproject.util.exception.NotFoundException: Not found object with id = 1"
+}</code>
 </li>
 </ul>
 
