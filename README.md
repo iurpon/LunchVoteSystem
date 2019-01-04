@@ -25,7 +25,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <li>
 <p><strong>Usage: </strong> <code> GET /rest/admin/restaurants</code></p>
 </li>
-<li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200 OK <br>
 <strong>Content:</strong> <div> [{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58","dishList": null},</div>
      <div> {"id": 100003,"name": "MADDISON SQUARE AVENIU","address": "NY, 2-nd street 39","dishList": null},</div>
      <div>{"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2","dishList": null}]</div>
@@ -38,7 +38,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <li>
 <p><strong>Usage: </strong> <code> GET /rest/admin/restaurants/{id}</code></p>
 </li>
-<li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200  OK <br>
 <strong>Content:</strong> <div>[{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58","dishList": null}]</div>
 </li>
 <li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
@@ -58,9 +58,9 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p><strong>Usage: </strong> <code> POST /rest/admin/restaurants</code></p>
 </li>
 <li>
-<p><strong>Request Body: </strong> <code><div> {"name": "New Restaurant","address": "LA, "Ocean street 1"}</div></code></p>
+<strong>Request Body: </strong> <code><div> {"name": "New Restaurant","address": "LA, "Ocean street 1"}</div></code>
 </li>      
-<li><strong>Success Response:</strong> <strong>Code:</strong> 201 <br>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 201 CREATED<br>
 <strong>Content:</strong> <div>[{"id": 100016,"name": "New Restaurant","address": "LA, Ocean street 1"}]</div>
 </li>
 <li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
@@ -78,7 +78,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <li>
 <p><strong>Usage: </strong> <code> GET /rest/admin/restaurants/{id}/menu</code></p>
 </li>
-<li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200  OK <br>
 <strong>Content:</strong> 
      <div>[{"id": 100004, "name": "BURGER KING","address": "NY, Washington street 2",</div>
       <div> "dishList":[{"id": 100008,"name": "Big Burger","registered": 03-01-2019,"price": 5.2},</div>
@@ -92,7 +92,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <li>
 <p><strong>Usage: </strong> <code> GET /rest/admin/restaurants/menu</code></p>
 </li>
-<li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200  OK <br>
 <strong>Content:</strong> 
       <div>[{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58",</div>
       <div> "dishList":[{"id": 100010,"name": "Steak","registered": 03-01-2019,"price": 10},</div>
@@ -111,8 +111,8 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p><strong>Usage: </strong> <code> POST /rest/admin/restaurants/{id}/menu</code></p>
 </li>
 <li>
-<p><strong>Request Body: </strong> <div> {"name": "Very Big Burger","price": 8.8,</div>
-     <div>"restaurant":{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58"}}</div></p>
+<strong>Request Body: </strong> <div> {"name": "Very Big Burger","price": 8.8,</div>
+     <div>"restaurant":{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58"}}</div>
 </li>      
 <li><strong>Success Response:</strong> <strong>Code:</strong> 201 <br>
 <strong>Content:</strong><div>{"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2",</div>
@@ -141,8 +141,8 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p><strong>Usage: </strong> <code> PUT /rest/admin/restaurants/{id}/menu/{dishId}</code></p>
 </li>
 <li>
-<p><strong>Request Body: </strong><div>  {"name": "Very Small Burger","price": 2.8,</div>
-     <div>"restaurant":{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58"}}</div></p>
+<strong>Request Body: </strong><div>  {"name": "Very Small Burger","price": 2.8,</div>
+     <div>"restaurant":{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58"}}</div>
 </li>      
 <li><strong>Success Response:</strong> <strong>Code:</strong> 201 <br>
 <strong>Content:</strong> <div>{"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2",</div>
@@ -151,7 +151,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
             <div>{"id": 100016,"name": "Very Small Burger","registered": 03-01-2019,"price": 2.8}]}</div>
 </li>
 <li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
-<strong>Content:</strong> <code>{   "url": "http://localhost:8080/voteSystem/rest/admin/restaurants",
+<strong>Content:</strong> <code>{   "url": "http://localhost:8080/voteSystem/rest/admin/restaurants/100004/menu/100008",
    "type": "VALIDATION_ERROR",
    "detail": "org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 ,default message [размер должен быть между 2 и 100]] "}</code>
 </li>
@@ -169,8 +169,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <li>
 <p><strong>Usage: </strong> <code> DELETE /rest/admin/restaurants/{id}/menu/{dishId}</code></p>
 </li>
-<li>   
-<li><strong>Success Response:</strong> <strong>Code:</strong> 204 <br>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 204 NO CONTENT<br>
 <strong>Content:</strong> <div>No content</div>
 </li>
 <li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
@@ -194,8 +193,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <ul>
 <li>
 <p><strong>Usage: </strong> <code> POST /rest/admin/startVote</code></p>
-</li>
-<li>   
+</li> 
 <li><strong>Success Response:</strong> <strong>Code:</strong> 204 <br>
 <strong>Content:</strong> <div>No content</div>
 </li>
@@ -208,7 +206,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 </li>
 </ul>
 
-<h3><strong>Show Statisctics</strong></h3>
+<h3><strong>Show Statistics</strong></h3>
 <p>Returns json data about vote counting </p>
 <ul>
 <li>
