@@ -199,12 +199,26 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <li><strong>Success Response:</strong> <strong>Code:</strong> 204 <br>
 <strong>Content:</strong> <div>No content</div>
 </li>
-<li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 409 CONFLICT <br>
 <strong>Content:</strong> <code>{
    "url": "http://localhost:8080/voteSystem/rest/admin/startVote",
    "type": "VOTE_ALREADY_STARTED",
    "detail": "ru.firstproject.util.exception.VoteAlreadyStarted: Vote already started"
 }</code>
+</li>
+</ul>
+
+<h3><strong>Show Statisctics</strong></h3>
+<p>Returns json data about vote counting </p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> GET rest/admin/statistics</code></p>
+</li>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
+<strong>Content:</strong> <div>{
+   "totalVotes": 1,
+   "restaurantVotesCount": {"MADDISON SQUARE AVENIU": 1}
+}</div>
 </li>
 </ul>
 
