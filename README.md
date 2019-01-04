@@ -244,6 +244,42 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 </li>
 </ul>
 
+<h3><strong>Create User</strong></h3>
+<p>return json data about created user</p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> POST /rest/admin/users</code></p>
+</li>
+<li>
+<strong>Request Body: </strong> <div>{      
+      "name": "CreatedUser",
+      "email": "user@mail.ru",
+      "password": "password",      
+      "roles": ["ROLE_USER"]
+           }</div>
+</li>      
+<li><strong>Success Response:</strong> <strong>Code:</strong> 201  CREATED<br>
+<strong>Response : </strong> <div>{
+   "id": 100016,
+   "name": "CreatedUser",
+   "email": "user@mail.ru",
+   "password": "password",
+   "registered": 1546631547969,
+   "roles": ["ROLE_USER"]
+}</div>     
+</li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/users/100000",
+   "type": "VALIDATION_ERROR",
+   "detail": "org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 ,default message [размер должен быть между 2 и 100]] "
+}</code>
+</li> 
+     
+</ul>
+
+
+
 <h3><strong>Show User</strong></h3>
 <p>Returns json data about a single User</p>
 <ul>
@@ -275,8 +311,8 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <li>
 <p><strong>Usage: </strong> <code> PUT /rest/users/{id}</code></p>
 </li>
-<li><strong>Success Response:</strong> <strong>Code:</strong> 200  OK<br>
-<strong>Content:</strong> <div>{
+<li>
+<strong>Request Body: </strong> <div>{
       "id": 100000,
       "name": "UpdatedUser",
       "email": "user@yandex.ru",
@@ -284,6 +320,8 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
       "registered": 1546563388467,
       "roles": ["ROLE_USER"]
            }</div>
+</li>      
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200  OK<br>
 </li>
 <li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
 <strong>Content:</strong> <code>{
@@ -307,6 +345,34 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 }</code>
 </li>       
 </ul>
+
+<h3><strong>Delete User</strong></h3>
+<p>delete user</p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> DELETE /rest/users/{id}</code></p>
+     <strong>Content:</strong> No content
+</li>
+   
+<li><strong>Success Response:</strong> <strong>Code:</strong> 204  NO CONTENT<br>
+</li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/admin/users/1",
+   "type": "DATA_NOT_FOUND",
+   "detail": "ru.firstproject.util.exception.NotFoundException: Not found object with id = 1"
+}</code>
+</li> 
+<li><strong>Error Response:</strong> <strong>Code:</strong> 500 INTERNAL SERVER ERROR <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/users/100001",
+   "type": "APP_ERROR",
+   "detail": "java.lang.IllegalArgumentException: checkCorrectId failed of different id"
+}</code>
+</li>       
+</ul>
+
+
 
 
 <h2>cURL command to get data for voting and vote</h2>
