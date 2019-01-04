@@ -58,7 +58,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p><strong>Usage: </strong> <code> POST /rest/admin/restaurants</code></p>
 </li>
 <li>
-<strong>Request Body: </strong> <code><div> {"name": "New Restaurant","address": "LA, "Ocean street 1"}</div></code>
+<strong>Request Body: </strong> <div> {"name": "New Restaurant","address": "LA, "Ocean street 1"}</div>
 </li>      
 <li><strong>Success Response:</strong> <strong>Code:</strong> 201 CREATED<br>
 <strong>Content:</strong> <div>[{"id": 100016,"name": "New Restaurant","address": "LA, Ocean street 1"}]</div>
