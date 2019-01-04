@@ -230,7 +230,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 </li>
 <li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
 <strong>Content:</strong> <div>[{"id": 100001,"name": "Admin","email": "admin@gmail.com", "password": "admin",
-      "registered": 1546563388467,
+      "registered": 03-01-2019,
       "roles": ["ROLE_ADMIN"]
      },</div>
       <div>{
@@ -238,7 +238,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
       "name": "User",
       "email": "user@yandex.ru",
       "password": "password",
-      "registered": 1546563388467,
+      "registered": 03-01-2019,
       "roles": ["ROLE_USER"]
            }]</div>
 </li>
@@ -264,7 +264,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
    "name": "CreatedUser",
    "email": "user@mail.ru",
    "password": "password",
-   "registered": 1546631547969,
+   "registered": 03-01-2019,
    "roles": ["ROLE_USER"]
 }</div>     
 </li>
@@ -291,7 +291,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
       "name": "User",
       "email": "user@yandex.ru",
       "password": "password",
-      "registered": 1546563388467,
+      "registered": 03-01-2019,
       "roles": ["ROLE_USER"]
            }</div>
 </li>
@@ -316,7 +316,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
       "name": "UpdatedUser",
       "email": "user@yandex.ru",
       "password": "password",
-      "registered": 1546563388467,
+      "registered": 03-01-2019,
       "roles": ["ROLE_USER"]
            }</div>
 </li>      
@@ -372,7 +372,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 </ul>
 
 <h3><strong>Create Vote</strong></h3>
-<p>return json data of created user vote</p>
+<p>return json data about created user vote</p>
 <ul>
 <li>
 <p><strong>Usage: </strong> <code> POST /rest/users/vote</code></p>
@@ -384,7 +384,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <strong>Response : </strong>
  <div>    {
    "id": 100016,
-   "registered": 1546639590554,
+   "registered": 03-01-2019,
    "restaurant":    {
       "id": 100002,
       "name": "OLIVE GARDEN",
@@ -395,16 +395,16 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
       "name": "User",
       "email": "user@yandex.ru",
       "password": "password",
-      "registered": 1546638851190,
+      "registered": 03-01-2019,
       "roles": ["ROLE_USER"]
    }
        }</div>
 </li>
 <li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
 <strong>Content:</strong> <code>{
-   "url": "http://localhost:8080/voteSystem/rest/admin/users/1",
-   "type": "DATA_NOT_FOUND",
-   "detail": "ru.firstproject.util.exception.NotFoundException: Not found object with id = 1"
+   "url": "http://localhost:8080/voteSystem/rest/users/vote",
+   "type": "TIMES_UP",
+   "detail": "ru.firstproject.util.exception.TimesUpException: you already voted"
 }</code>
 </li>
 <li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
@@ -413,14 +413,22 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
    "type": "VALIDATION_ERROR",
    "detail": "org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 ,default message [размер должен быть между 2 и 100]] "
 }</code>
-</li>  
-<li><strong>Error Response:</strong> <strong>Code:</strong> 500 INTERNAL SERVER ERROR <br>
-<strong>Content:</strong> <code>{
-   "url": "http://localhost:8080/voteSystem/rest/users/100001",
-   "type": "APP_ERROR",
-   "detail": "java.lang.IllegalArgumentException: checkCorrectId failed of different id"
-}</code>
-</li>       
+</li>        
+</ul>
+
+<h3><strong>Show Statistics</strong></h3>
+<p>Returns json data about vote counting </p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> GET rest/users/statistics</code></p>
+</li>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
+<strong>Content:</strong> <div>{
+   "totalVotes": 1,
+   "restaurantVotesCount": {"MADDISON SQUARE AVENIU": 1},
+   "userChoise": "MADDISON SQUARE AVENIU"
+}</div>
+</li>
 </ul>
 
 
