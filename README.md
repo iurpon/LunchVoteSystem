@@ -141,7 +141,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p><strong>Usage: </strong> <code> PUT /rest/admin/restaurants/{id}/menu/{dishId}</code></p>
 </li>
 <li>
-<strong>Request Body: </strong><div>  {"name": "Very Small Burger","price": 2.8,</div>
+<strong>Request Body: </strong><div>  {"id":100016,"name": "Very Small Burger","price": 2.8,</div>
      <div>"restaurant":{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58"}}</div>
 </li>      
 <li><strong>Success Response:</strong> <strong>Code:</strong> 201 <br>
@@ -151,7 +151,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
             <div>{"id": 100016,"name": "Very Small Burger","registered": 03-01-2019,"price": 2.8}]}</div>
 </li>
 <li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
-<strong>Content:</strong> <code>{   "url": "http://localhost:8080/voteSystem/rest/admin/restaurants/100004/menu/100008",
+<strong>Content:</strong> <code>{   "url": "http://localhost:8080/voteSystem/rest/admin/restaurants/100004/menu/100016",
    "type": "VALIDATION_ERROR",
    "detail": "org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 ,default message [размер должен быть между 2 и 100]] "}</code>
 </li>
@@ -248,9 +248,9 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <p>Returns json data about a single User</p>
 <ul>
 <li>
-<p><strong>Usage: </strong> <code> GET /rest/admin/users/{id}</code></p>
+<p><strong>Usage: </strong> <code> GET /rest/users/{id}</code></p>
 </li>
-<li><strong>Success Response:</strong> <strong>Code:</strong> 200 <br>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200  OK<br>
 <strong>Content:</strong> <div>{
       "id": 100000,
       "name": "User",
@@ -267,6 +267,45 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
    "detail": "ru.firstproject.util.exception.NotFoundException: Not found object with id = 1"
 }</code>
 </li>
+</ul>
+
+<h3><strong>Update User</strong></h3>
+<p>update user</p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> PUT /rest/users/{id}</code></p>
+</li>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200  OK<br>
+<strong>Content:</strong> <div>{
+      "id": 100000,
+      "name": "UpdatedUser",
+      "email": "user@yandex.ru",
+      "password": "password",
+      "registered": 1546563388467,
+      "roles": ["ROLE_USER"]
+           }</div>
+</li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/admin/users/1",
+   "type": "DATA_NOT_FOUND",
+   "detail": "ru.firstproject.util.exception.NotFoundException: Not found object with id = 1"
+}</code>
+</li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 422 UNPROCESSABLE_ENTITY <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/users/100000",
+   "type": "VALIDATION_ERROR",
+   "detail": "org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument at index 0 ,default message [размер должен быть между 2 и 100]] "
+}</code>
+</li>  
+<li><strong>Error Response:</strong> <strong>Code:</strong> 500 INTERNAL SERVER ERROR <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/users/100001",
+   "type": "APP_ERROR",
+   "detail": "java.lang.IllegalArgumentException: checkCorrectId failed of different id"
+}</code>
+</li>       
 </ul>
 
 
