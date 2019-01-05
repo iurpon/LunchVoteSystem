@@ -50,13 +50,13 @@ public class UserServiceImplTest extends AbstractServiceTest {
     @Test
     public void get() throws Exception {
         User user =  service.get(USER_ID);
-        UserTestData.assertMatch(USER,user);
+        assertMatch(USER,user);
     }
 
     @Test
     public void getByEmail() throws Exception {
         User user = service.getByEmail("user@yandex.ru");
-        UserTestData.assertMatch(USER,user);
+        assertMatch(USER,user);
     }
 
     @Test(expected = NotFoundException.class)
@@ -77,7 +77,7 @@ public class UserServiceImplTest extends AbstractServiceTest {
         user.setName("newUser");
         service.update(user, USER_ID);
         User updatedUser = service.get(USER_ID);
-        UserTestData.assertMatch(updatedUser,user);
+        assertMatch(updatedUser,user);
     }
 
 }

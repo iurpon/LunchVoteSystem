@@ -2,7 +2,7 @@ package ru.firstproject.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.proxy.HibernateProxy;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
