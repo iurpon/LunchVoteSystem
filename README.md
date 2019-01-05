@@ -278,6 +278,30 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 </ul>
 
 
+<h3><strong>Show Today All Restaurants Menu</strong></h3>
+<p>Returns json data about all restaurants menu</p>
+<ul>
+<li>
+<p><strong>Usage: </strong> <code> GET /rest/users/menu</code></p>
+</li>
+<li><strong>Success Response:</strong> <strong>Code:</strong> 200  OK <br>
+<strong>Content:</strong> 
+      <div>[{"id": 100002,"name": "OLIVE GARDEN","address": "NY, 1-st street 58",</div>
+      <div> "dishList":[{"id": 100010,"name": "Steak","registered": 03-01-2019,"price": 10},</div>
+             <div>     {"id": 100011,"name": "Milk Cocktail","registered": 03-01-2019,"price": 1.5},</div>
+              <div>    {"id": 100012,"name": "Pancake","registered": 03-01-2019,"price": 2}]},</div>
+     <div> {"id": 100004,"name": "BURGER KING","address": "NY, Washington street 2",</div>
+     <div>  "dishList":[{"id": 100008,"name": "Big Burger","registered": 03-01-2019,"price": 5.2},</div>
+          <div>        {"id": 100009,"name": "Kola","registered": 03-01-2019,"price": 2}]}]</div>
+</li>
+<li><strong>Error Response:</strong> <strong>Code:</strong> 409 CONFLICT <br>
+<strong>Content:</strong> <code>{
+   "url": "http://localhost:8080/voteSystem/rest/users/menu",
+   "type": "MENU_NOT_READY",
+   "detail": "ru.firstproject.util.exception.MenuNotReadyException: menu not ready yet. please try again later."
+}</code>
+</li>     
+</ul>
 
 <h3><strong>Show User</strong></h3>
 <p>Returns json data about a single User</p>
@@ -426,7 +450,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <strong>Content:</strong> <div>{
    "totalVotes": 1,
    "restaurantVotesCount": {"MADDISON SQUARE AVENIU": 1},
-   "userChoise": "MADDISON SQUARE AVENIU"
+   "yourChoise": "MADDISON SQUARE AVENIU"
 }</div>
 </li>
 </ul>
@@ -436,7 +460,7 @@ Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot
 <h2>cURL command to get data for voting and vote</h2>
 <ul>
   <li><strong> Get Today Menus </strong> </li>
-  <code>curl -s http://localhost:8080/voteSystem/rest/users/{id}/menu --user user@yandex.ru:password</code>
+  <div>curl -s http://localhost:8080/voteSystem/rest/users/{id}/menu --user user@yandex.ru:password</div>
  
 
   <li><strong> User vote </strong></li>
