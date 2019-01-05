@@ -1,5 +1,7 @@
 package ru.firstproject.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -10,6 +12,7 @@ public class Vote extends AbstractBaseEntity {
 
     @Column(name = "registered")
     @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date registered = new Date();
 
     @ManyToOne(fetch = FetchType.EAGER)

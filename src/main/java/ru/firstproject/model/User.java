@@ -1,5 +1,6 @@
 package ru.firstproject.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
@@ -37,6 +38,7 @@ public class User extends AbstractNamedEntity {
 
     @Column(name = "registered")
     @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date registered = new Date();
 
     @Enumerated(EnumType.STRING)

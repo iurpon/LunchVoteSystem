@@ -6,14 +6,21 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ru.firstproject.util.exception.*;
 
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.security.access.AccessDeniedException;
+
+import static ru.firstproject.util.exception.ErrorType.VALIDATION_ERROR;
 
 @RestControllerAdvice(annotations = RestController.class)
 @Order(Ordered.HIGHEST_PRECEDENCE + 5)
-public class ExceptionInfoHandler {
+public class ExceptionInfoHandler  {
     private static Logger log = LoggerFactory.getLogger(ExceptionInfoHandler.class);
 
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
@@ -38,6 +45,23 @@ public class ExceptionInfoHandler {
     @ExceptionHandler(TimesUpException.class)
     public ErrorInfo handleTimeUpError(HttpServletRequest req, TimesUpException e) {
         return logAndGetErrorInfo(req, e, false, ErrorType.TIMES_UP);
+    }
+
+/*    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(Throwable.class)
+    public ErrorInfo handleAccessDenied(HttpServletRequest req, AccessDeniedException e) {
+        return logAndGetErrorInfo(req, e, false, ErrorType.USER_UNAUTHORIZED);
+    }
+
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    @ExceptionHandler(AccessDeniedException.class)
+    public ErrorInfo handleAccessForbidden(HttpServletRequest req, AccessDeniedException e) {
+        return logAndGetErrorInfo(req, e, false, ErrorType.USER_FORBIDDEN);
+    }*/
+    @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)  // 422
+    @ExceptionHandler({BindException.class, MethodArgumentNotValidException.class})
+    public ErrorInfo handleValidationError(HttpServletRequest req, Exception e) {
+        return logAndGetErrorInfo(req, e, false, VALIDATION_ERROR);
     }
 
     @ResponseStatus(value = HttpStatus.CONFLICT)

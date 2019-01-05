@@ -6,7 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import ru.firstproject.AbstractControllerTest;
 import ru.firstproject.TestUtil;
-import ru.firstproject.model.Role;
+
+import ru.firstproject.model.Restaurant;
 import ru.firstproject.model.User;
 import ru.firstproject.model.Vote;
 import ru.firstproject.util.ValidationUtil;
@@ -56,19 +57,7 @@ public class RestUserControllerTest extends AbstractControllerTest {
         assertMatch(userService.getAll(),ADMIN);
     }
 
-    @Test
-    public void createTest() throws Exception {
-        User created = new User(null,"newUser","newUser@mail.ru","newPassword", Role.ROLE_USER);
-        ResultActions resultActions = mockMvc.perform(post(REST_USER_URL)
-                                             .contentType(MediaType.APPLICATION_JSON)
-                                            .with(userHttpBasic(USER))
-                                            .content(JsonUtil.writeValue(created)))
-                                            .andDo(print())
-                                            .andExpect(status().isCreated());
-        User returned = TestUtil.readFromJson(resultActions,User.class);
-        created.setId(returned.getId());
-        assertMatch(created, returned);
-    }
+
 
 
 
@@ -99,5 +88,18 @@ public class RestUserControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(RESTAURANT1)))
                 .andDo(print())
                 .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void getMenu() throws Exception {
+        ResultActions resultActions = mockMvc.perform(get(REST_USER_URL + "/menu")
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(contentJson(RESTAURANT1, RESTAURANT3));
+        List<Restaurant> restaurantList = readMultiFromJson(resultActions, Restaurant.class);
+        Assert.assertEquals(restaurantList.size(), 2);
+        Assert.assertEquals(restaurantList.get(0).getDishList().size() + restaurantList.get(1).getDishList().size(), 5);
     }
 }

@@ -36,7 +36,7 @@ public class VoteServiceImplTest  extends AbstractServiceTest{
 
     @Test(expected = TimesUpException.class)
     public void saveDenied() throws Exception {
-        TIME_TO_CHANGE_MIND = LocalTime.now().minusHours(1);
+        TIME_TO_CHANGE_MIND = LocalTime.now().minusMinutes(5);
         voteService.save(VOTE1,ADMIN_ID);
     }
 

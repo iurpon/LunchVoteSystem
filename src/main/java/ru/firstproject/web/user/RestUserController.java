@@ -2,17 +2,20 @@ package ru.firstproject.web.user;
 
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import ru.firstproject.AuthorizedUser;
 import ru.firstproject.model.Restaurant;
 import ru.firstproject.model.User;
 import org.springframework.http.MediaType;
 import ru.firstproject.model.Vote;
+import ru.firstproject.util.ValidationUtil;
+import ru.firstproject.util.exception.MenuNotReadyException;
 
-import java.net.URI;
+import javax.validation.Valid;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +34,7 @@ public class RestUserController  extends AbstractUserController{
     }
 
     @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody User user,@PathVariable("id") int id){
+    public void update(@Valid @RequestBody User user, @PathVariable("id") int id){
         userService.update(user,id);
     }
 
@@ -39,24 +42,16 @@ public class RestUserController  extends AbstractUserController{
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int id){
+        User user = AuthorizedUser.get().getUser();
+        ValidationUtil.checkCorrectId(user,id);
         userService.delete(id);
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createWithLocation(@RequestBody User user){
-        User created = userService.create(user);
-        URI newUriOfResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                                .path(REST_USER_URL + "/id")
-                                .buildAndExpand(created.getId()).toUri();
 
-        return ResponseEntity.created(newUriOfResource).body(created);
-
-
-    }
 
     @PostMapping(value = "/vote",consumes = MediaType.APPLICATION_JSON_VALUE
                                         ,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Vote createVote(@RequestBody Restaurant restaurant){
+    public Vote createVote(@Valid @RequestBody Restaurant restaurant){
         Vote created = new Vote();
         created.setRestaurant(restaurant);
         User user = AuthorizedUser.get().getUser();
@@ -64,9 +59,18 @@ public class RestUserController  extends AbstractUserController{
         return voteService.save(created,user.getId());
     }
 
+    @GetMapping(value = "/menu",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Restaurant> getMenu(){
+        List<Restaurant> menu = restaurantService.getMenu(new Date());
+        if(menu.isEmpty()){
+            throw new MenuNotReadyException("menu not ready yet. please try again later.");
+        }
+        return menu;
+    }
+
 
     @GetMapping(value = "/statistics",produces = MediaType.APPLICATION_JSON_VALUE)
-    public String statistics(){
+    public UserStatistics statistics(){
         int id = AuthorizedUser.id();
         List<Vote> votes = voteService.getAllByDate(new Date());
         int totalVotes = votes.size();
@@ -78,31 +82,48 @@ public class RestUserController  extends AbstractUserController{
                     }
                     return true;})
                 .collect(Collectors.groupingBy(v -> v.getRestaurant().getName(), Collectors.counting()));
-        return String.format("Statistics : 1) Total votes : %d.\n" +
-                                          "2) %s\n" +
-                                          "3) Your choise : %s\n",totalVotes,collect.toString(),choise[0]);
+        UserStatistics userStatistics = new UserStatistics();
+        userStatistics.setTotalVotes(totalVotes);
+        userStatistics.setRestaurantVotesCount(collect);
+        userStatistics.setUserChoise(choise[0]);
+        return userStatistics;
     }
+    public static class UserStatistics{
+        private int totalVotes;
+        private Map<String,Long> restaurantVotesCount;
+        private String userChoise;
 
-
-
-
-
-
-
-
-    @GetMapping(value = "/text",produces = MediaType.APPLICATION_JSON_VALUE)
-    public String testUTF(@PathVariable("id") int id) {
-        log.info("GET mapping to /text");
-        return String.format("Русский текст");
-    }
-
-
-/*    @GetMapping(value = "/{id}/menu", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> getTodayMenu(@PathVariable("id") int id) {
-        List<Menu> allByDate = menuService.getAllByDate(new Date());
-        if(allByDate.isEmpty()){
-            throw new MenuNotReadyException("Menu not ready. Try again later");
+        public int getTotalVotes() {
+            return totalVotes;
         }
-        return allByDate;
-    }*/
+
+        public void setTotalVotes(int totalVotes) {
+            this.totalVotes = totalVotes;
+        }
+
+        public Map<String, Long> getRestaurantVotesCount() {
+            return restaurantVotesCount;
+        }
+
+        public void setRestaurantVotesCount(Map<String, Long> restaurantVotesCount) {
+            this.restaurantVotesCount = restaurantVotesCount;
+        }
+
+        public String getUserChoise() {
+            return userChoise;
+        }
+
+        public void setUserChoise(String userChoise) {
+            this.userChoise = userChoise;
+        }
+
+        @Override
+        public String toString() {
+            return "Statistics{" +
+                    "totalVotes=" + totalVotes +
+                    ", restaurantVotesCount=" + restaurantVotesCount +
+                    ", yourChoise='" + userChoise + '\'' +
+                    '}';
+        }
+    }
 }

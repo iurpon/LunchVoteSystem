@@ -4,12 +4,18 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import ru.firstproject.AbstractControllerTest;
 import ru.firstproject.MenuTestData;
 import ru.firstproject.TestUtil;
 import ru.firstproject.model.Dish;
 import ru.firstproject.model.Restaurant;
+import ru.firstproject.model.Role;
+import ru.firstproject.model.User;
+import ru.firstproject.util.exception.ErrorType;
 import ru.firstproject.util.json.JsonUtil;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static ru.firstproject.DishTestData.*;
 import static ru.firstproject.UserTestData.*;
 
@@ -38,6 +44,19 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
         Restaurant justCreated = readFromJson(resultActions,Restaurant.class);
         restaurant.setId(justCreated.getId());
         MenuTestData.assertMatch(restaurantService.get(justCreated.getId()),restaurant);
+    }
+
+    @Test
+    public void createRestaurantNotValid() throws Exception {
+        Restaurant restaurant = new Restaurant(null, "","Chicago, Washington Aveniu" );
+         mockMvc.perform(post(REST_ADMIN_URL + "/restaurants")
+                .with(userHttpBasic(ADMIN))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(restaurant)))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()))
+                .andDo(print());
+
     }
 
     @Test
@@ -121,6 +140,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
     public void updateDish() throws Exception{
         Dish created = new Dish(DISH3);
         created.setName("Muck bigger steak");
+
         ResultActions resultActions = mockMvc.perform(put(REST_ADMIN_URL + "restaurants/" + REST_SEQ1 + "/menu/" + DISH_SEQ3)
                 .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -133,7 +153,7 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
     }
 
     @Test
-    public void deletDish() throws Exception{
+    public void deleteDish() throws Exception{
         mockMvc.perform(delete(REST_ADMIN_URL + "restaurants/" + REST_SEQ1 + "/menu/" + DISH_SEQ3)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNoContent());
@@ -203,8 +223,22 @@ public class RestAdminControllerTest  extends AbstractControllerTest{
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        String stats = TestUtil.readFromJson(resultActions,String.class);
-        logger.info("Result actions to string : " + stats);
+        RestAdminController.Statistics stats = TestUtil.readFromJson(resultActions,RestAdminController.Statistics.class);
+        logger.info("Result actions to string : " + stats.toString());
+    }
+
+    @Test
+    public void createTest() throws Exception {
+        User created = new User(null,"newUser","newUser@mail.ru","newPassword", Role.ROLE_USER);
+        ResultActions resultActions = mockMvc.perform(post("/rest/admin/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(ADMIN))
+                .content(JsonUtil.writeValue(created)))
+                .andDo(print())
+                .andExpect(status().isCreated());
+        User returned = TestUtil.readFromJson(resultActions,User.class);
+        created.setId(returned.getId());
+        assertMatch(created, returned);
     }
 
 }

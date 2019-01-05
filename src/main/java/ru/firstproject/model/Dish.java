@@ -1,5 +1,6 @@
 package ru.firstproject.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -13,6 +14,7 @@ public class Dish  extends AbstractNamedEntity{
 
     @Column(name = "registered")
     @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date registered = new Date();
 
     @Column(name = "price")
